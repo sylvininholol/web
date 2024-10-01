@@ -1,10 +1,10 @@
 # Dependencies and AdonisJS build
 node_modules
 build
-tmp
+# tmp
 
 # Secrets
-.env
+# .env
 .env.local
 .env.production.local
 .env.development.local
