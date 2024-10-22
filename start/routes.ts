@@ -12,6 +12,8 @@ import router from '@adonisjs/core/services/router'
 const UsersController = () => import('#controllers/users_controller')
 const ProductsController = () => import('#controllers/products_controller')
 
+router.get('/login', [UsersController, 'goToLoginPage']).as('loginPage')
+
 router
   .group(() => {
     router.get('/', [UsersController, 'index']).as('lista')
