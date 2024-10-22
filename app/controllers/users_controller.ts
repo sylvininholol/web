@@ -2,6 +2,7 @@ import Hash from '@adonisjs/core/services/hash'
 import type { HttpContext } from '@adonisjs/core/http'
 import User from '#models/user'
 import { messages } from '@vinejs/vine/defaults'
+
 let sequence = 2
 
 const users = [
@@ -24,14 +25,13 @@ export default class UsersController {
 
   async login({ request, response, auth }: HttpContext) {
     const { email, password } = request.only(['email', 'password']);
-    console.log("Ué")
   
     const user = await User.findBy('email', email);
   
     if (user && (await Hash.verify(user.password, password))) {
       await auth.use('web').login(user);
-      console.log("DEU CERTO")
-      return response.redirect('/users');
+      auth.authenticate()
+      return response.status(200).send({ message: 'Deu certo' });
     }
     console.log("DEU ERRADO")
     return response.status(401).send({ message: 'Credenciais inválidas' });
