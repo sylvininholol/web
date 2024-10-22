@@ -1,23 +1,16 @@
-import app from '@adonisjs/core/services/app'
-import { defineConfig } from '@adonisjs/lucid'
+import { DatabaseConfig } from "@adonisjs/lucid/types/database"
 
-const dbConfig = defineConfig({
-  prettyPrintDebugQueries: true,
+const databaseConfig: DatabaseConfig = {
   connection: 'sqlite',
   connections: {
     sqlite: {
       client: 'better-sqlite3',
       connection: {
-        filename: app.tmpPath('db.sqlite3'),
+        filename: './database/database.sqlite3',
       },
       useNullAsDefault: true,
-      migrations: {
-        naturalSort: true,
-        paths: ['database/migrations'],
-      },
-      debug: true,
     },
   },
-})
+}
 
-export default dbConfig
+export default databaseConfig

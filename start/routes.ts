@@ -13,6 +13,8 @@ const UsersController = () => import('#controllers/users_controller')
 const ProductsController = () => import('#controllers/products_controller')
 
 router.get('/login', [UsersController, 'goToLoginPage']).as('loginPage')
+router.post('/login', [UsersController, 'login']).as('login')
+
 
 router
   .group(() => {
