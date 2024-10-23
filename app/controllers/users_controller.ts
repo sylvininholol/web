@@ -25,21 +25,18 @@ export default class UsersController {
 
   async login({ request, response, auth }: HttpContext) {
     const { email, password } = request.only(['email', 'password']);
-  
+
     const user = await User.findBy('email', email);
-  
+
     if (user && (await Hash.verify(user.password, password))) {
       await auth.use('web').login(user);
       auth.authenticate()
       return response.status(200).send({ message: 'Deu certo' });
     }
-    console.log("DEU ERRADO")
     return response.status(401).send({ message: 'Credenciais inválidas' });
   }
-  
-  
-  goToLoginPage({ view }: HttpContext){
-    console.log("LOGINPAGE")
+
+  goToLoginPage({ view }: HttpContext) {
     return view.render('pages/login/index')
   }
 
