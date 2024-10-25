@@ -14,6 +14,10 @@ const ProductsController = () => import('#controllers/products_controller')
 
 router.get('/login', [UsersController, 'goToLoginPage']).as('loginPage')
 
+//Rotas de registro
+router.get('/register', [UsersController, 'showRegister']).as('register.show')
+router.post('/register', [UsersController, 'register']).as('register')
+
 router
   .group(() => {
     router.post('/login', [UsersController, 'login']).as('login')
@@ -22,9 +26,11 @@ router
         router.get('/', [UsersController, 'index']).as('lista')
         router.get('/:id', [UsersController, 'show']).where('id', router.matchers.number()).as('show')
         router.post('/', [UsersController, 'create']).as('create')
+        router.get('/register', [UsersController, 'showRegister']).as('register.show')
       })
       .prefix('users')
       .as('users')
+
 
     router
       .group(() => {

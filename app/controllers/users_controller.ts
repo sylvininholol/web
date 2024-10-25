@@ -2,6 +2,8 @@ import Hash from '@adonisjs/core/services/hash'
 import type { HttpContext } from '@adonisjs/core/http'
 import User from '#models/user'
 import { messages } from '@vinejs/vine/defaults'
+import { Database } from 'sqlite3'
+import { registerValidator } from '#validators/register'
 
 let sequence = 2
 
@@ -71,5 +73,24 @@ export default class UsersController {
     response.status(404)
 
     return { message: 'not found' }
+  }
+
+  public async register({ request, response}: HttpContext) {
+    
+    //grab request data
+    const data = request.only(['full_name', 'email', 'password'])
+
+    //create user
+    const validadedData = await registerValidator.validate(data)
+
+    const user = await User.create(validadedData)
+
+    console.log({user: user.serialize()})
+
+    return response.redirect('/login')
+  } 
+
+  public async showRegister({view}: HttpContext) {
+    return view.render('pages/register/index')
   }
 }

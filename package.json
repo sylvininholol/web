@@ -64,7 +64,8 @@
     "edge.js": "^6.0.2",
     "luxon": "^3.5.0",
     "reflect-metadata": "^0.2.2",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "vine": "^0.1.1"
   },
   "hotHook": {
     "boundaries": [
