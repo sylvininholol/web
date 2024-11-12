@@ -18,51 +18,62 @@
         .register-container {
             background-color: white;
             padding: 2em;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            width: 320px;
             text-align: center;
         }
 
         h1 {
-            font-size: 24px;
+            font-size: 26px;
             margin-bottom: 1.5em;
+            color: #333;
         }
 
         label {
             display: block;
             text-align: left;
-            margin-bottom: 0.5em;
+            margin-bottom: 0.4em;
             font-weight: bold;
+            color: #555;
         }
 
         input {
             width: 100%;
-            padding: 0.5em;
-            margin-bottom: 1em;
+            padding: 0.6em;
+            margin-bottom: 0.5em;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5em;
+        }
+
+        .error {
+            color: red;
+            margin-top: -0.4em;
+            margin-bottom: 1em;
+            font-size: 12px;
+            text-align: left;
         }
 
         button {
             width: 100%;
-            padding: 0.7em;
+            padding: 0.8em;
             background-color: #007bff;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            margin-top: 1em;
+            transition: background-color 0.3s;
         }
 
         button:hover {
             background-color: #0056b3;
-        }
-
-        .error {
-            color: red; /* Agora garante que o texto fique vermelho */
-            margin-bottom: 1em;
-            font-size: 12px;
         }
     </style>
 </head>
@@ -71,27 +82,32 @@
     <div class="register-container">
         <h1>Faça seu registro</h1>
         <form action="/register" method="POST">
+            <div class="form-group">
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="fullName" required>
+                
+                @inputError('fullName')
+                    <p class="error">{{ $messages.join(', ') }}</p>
+                @end
+            </div>
 
-            <label for="name">Nome:</label>
-            <input type="text" id="name" name="fullName" required>
-            
-            @inputError('fullName')
-                <p class="error">{{ $messages.join(', ') }}</p>
-            @end
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                @inputError('email')
+                    <p class="error">{{ $messages.join(', ') }}</p>
+                @end
+            </div>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            
-            @inputError('email')
-                <p class="error">{{ $messages.join(', ') }}</p>
-            @end
-
-            <label for="password">Senha:</label>
-            <input type="password" id="password" name="password" required>
-            
-            @inputError('password')
-                <p class="error">{{ $messages.join(', ') }}</p>
-            @end
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required>
+                
+                @inputError('password')
+                    <p class="error">{{ $messages.join(', ') }}</p>
+                @end
+            </div>
 
             <button type="submit">Registrar</button>
         </form>
