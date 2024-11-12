@@ -14,7 +14,7 @@ const ProductsController = () => import('#controllers/products_controller')
 
 router.get('/login', [UsersController, 'goToLoginPage']).as('loginPage')
 
-//Rotas de registro
+//Rotas de registro de user
 router.get('/register', [UsersController, 'showRegister']).as('register.show')
 router.post('/register', [UsersController, 'register']).as('register')
 
@@ -32,16 +32,27 @@ router
       .as('users')
 
 
-    router
-      .group(() => {
-        router.get('/products', [ProductsController, 'index']).as('products.index')
-        router.get('/products/:id', [ProductsController, 'show']).as('products.show')
-        router.post('/products', [ProductsController, 'store']).as('products.store')
-        router.delete('/products/:id', [ProductsController, 'destroy']).as('products.destroy')
-        router.patch('/products/:id', [ProductsController, 'patch']).as('products.patch')
-      })
-      .prefix('products')
-      .as('products')
+router
+  .group(() => {
+    router.get('/', [ProductsController, 'index']).as('products.index')
+    router.get('/:id', [ProductsController, 'show'])
+      .where('id', router.matchers.number())
+      .as('products.show')
+    router.post('/', [ProductsController, 'store']).as('products.store')
+    router.delete('/:id', [ProductsController, 'destroy']).as('products.destroy')
+    router.patch('/:id', [ProductsController, 'patch']).as('products.patch')
+  })
+  .prefix('products')
+  .as('products')
   })
   .prefix('api')
   .as('api')
+
+  router
+  .group(() => {
+    router.get('/create', [ProductsController, 'showCreate']).as('products.create.show')
+    router.post('/create', [ProductsController, 'store']).as('products.store')
+    router.get('/', [ProductsController, 'viewProducts']).as('products.viewProducts')
+  })
+  .prefix('products')
+  .as('products')

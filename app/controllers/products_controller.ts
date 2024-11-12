@@ -26,12 +26,12 @@ export default class ProductsController {
     return product
   }
 
-  async store({ request }: HttpContext) {
+  async store({ request, response }: HttpContext) {
     const payload = request.only(['name', 'price', 'description'])
-
+  
     const product = await Product.create(payload)
-
-    return product
+  
+    return response.redirect().toRoute('/products') // Certifique-se que está redirecionando para a rota correta
   }
 
   async patch({ params, request}: HttpContext) {
@@ -51,5 +51,13 @@ export default class ProductsController {
     await product.delete()
 
     return { sucess: `${params.id} removido`}
+  }
+
+  public async showCreate({view}: HttpContext) {
+    return view.render('pages/product/create')
+  }
+
+  public async viewProducts({view}: HttpContext) {
+    return view.render('pages/product/show')
   }
 }

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 40px;
+    }
+
+    .products-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-card h2 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .product-card p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .product-card .price {
+      color: #5cb85c;
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .product-card .description {
+      margin-bottom: 15px;
+    }
+
+    .no-products {
+      text-align: center;
+      color: #999;
+      font-size: 18px;
+      margin-top: 50px;
+    }
+
+    .add-product-btn {
+      display: block;
+      width: 200px;
+      margin: 30px auto;
+      padding: 10px;
+      text-align: center;
+      background-color: #5cb85c;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .add-product-btn:hover {
+      background-color: #4cae4c;
+    }
+  </style>
+</head>
+<body>
+  <h1>Products List</h1>
+
+  <div class="products-container">
+    <!-- Exemplo de um cartão de produto. Repita este bloco para cada produto -->
+     if (products.length > 0) { 
+      <% products.forEach(product => { %>
+        <div class="product-card">
+          <h2><%= product.name %></h2>
+          <p class="price">$<%= product.price %></p>
+          <p class="description"><%= product.description %></p>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p class="no-products">No products available.</p>
+    <% } %>
+  </div>
+
+  <!-- Botão para adicionar novo produto -->
+  <a href="/products/create" class="add-product-btn">Add New Product</a>
+</body>
+</html>
