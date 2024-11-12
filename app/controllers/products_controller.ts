@@ -3,22 +3,28 @@ import { HttpContext } from "@adonisjs/core/http"
 import Product from "#models/product"
 
 export default class ProductsController {
-  async index({ request }: HttpContext) {
-    const page = request.input('page', 1)
-    const limit = 10
-
-    const payload = request.only(['name'])
-
-    const query = Product.query()
-
-    if (payload.name && payload.name.length > 0) {
-      query.where('name', 'like', `%${payload.name}%`)
+  async index({ request, response }: HttpContext) {
+    try {
+      const page = request.input('page', 1);
+      const limit = 10;
+  
+      const payload = request.only(['name']);
+  
+      const query = Product.query();
+  
+      if (payload.name && payload.name.length > 0) {
+        query.where('name', 'like', `%${payload.name}%`);
+      }
+  
+      const products = await query.paginate(page, limit);
+  
+      return products;
+    } catch (error) {
+      console.error('Erro ao buscar produtos:', error);
+      return response.status(500).json({ message: 'Erro ao buscar produtos' });
     }
-
-    const products = await query.paginate(page, limit)
-
-    return products
   }
+  
 
   async show({ params }: HttpContext) {
     const product = await Product.findOrFail(params.id)
