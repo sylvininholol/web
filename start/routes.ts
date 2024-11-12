@@ -1,58 +1,61 @@
-/*
-|--------------------------------------------------------------------------
-| Routes file
-|--------------------------------------------------------------------------
-|
-| The routes file is used for defining the HTTP routes.
-|
-*/
-
 import router from '@adonisjs/core/services/router'
 
 const UsersController = () => import('#controllers/users_controller')
 const ProductsController = () => import('#controllers/products_controller')
 
+/**
+ * Rotas de Views
+ */
 router.get('/login', [UsersController, 'goToLoginPage']).as('loginPage')
 
-//Rotas de registro de user
+// Rotas de registro de usuário
 router.get('/register', [UsersController, 'showRegister']).as('register.show')
 router.post('/register', [UsersController, 'register']).as('register')
 
-router
-  .group(() => {
-    router.post('/login', [UsersController, 'login']).as('login')
-    router
-      .group(() => {
-        router.get('/', [UsersController, 'index']).as('lista')
-        router.get('/:id', [UsersController, 'show']).where('id', router.matchers.number()).as('show')
-        router.post('/', [UsersController, 'create']).as('create')
-        router.get('/register', [UsersController, 'showRegister']).as('register.show')
-      })
-      .prefix('users')
-      .as('users')
+// Rotas de Views para Produtos
+router.group(() => {
+  router.get('/create', [ProductsController, 'showCreate']).as('products.create.show')
+  router.get('/', [ProductsController, 'viewProducts']).as('products.viewProducts')
+})
+.prefix('products')
+.as('products')
 
+/**
+ * Rotas de API
+ */
+router.group(() => {
+  
+  // Rotas de autenticação na API
+  router.post('/login', [UsersController, 'login']).as('api.login')
+  
+  // Rotas de API para Usuários
+  router.group(() => {
+    router.get('/', [UsersController, 'index']).as('api.users.index')
+    router.get('/:id', [UsersController, 'show'])
+      .where('id', router.matchers.number())
+      .as('api.users.show')
+    router.post('/', [UsersController, 'create']).as('api.users.create')
+  })
+  .prefix('users')
+  .as('api.users')
 
-router
-  .group(() => {
-    router.get('/', [ProductsController, 'index']).as('products.index')
+  // Rotas de API para Produtos
+  router.group(() => {
+    router.get('/', [ProductsController, 'index']).as('api.products.index')
     router.get('/:id', [ProductsController, 'show'])
       .where('id', router.matchers.number())
-      .as('products.show')
-    router.post('/', [ProductsController, 'store']).as('products.store')
-    router.delete('/:id', [ProductsController, 'destroy']).as('products.destroy')
-    router.patch('/:id', [ProductsController, 'patch']).as('products.patch')
+      .as('api.products.show')
+    router.post('/create', [ProductsController, 'store']).as('api.products.store')
+    router.delete('/:id', [ProductsController, 'destroy'])
+      .where('id', router.matchers.number())
+      .as('api.products.destroy')
+    router.patch('/:id', [ProductsController, 'patch'])
+      .where('id', router.matchers.number())
+      .as('api.products.patch')
   })
   .prefix('products')
-  .as('products')
-  })
-  .prefix('api')
-  .as('api')
+  .as('api.products')
 
-  router
-  .group(() => {
-    router.get('/create', [ProductsController, 'showCreate']).as('products.create.show')
-    router.post('/create', [ProductsController, 'store']).as('products.store')
-    router.get('/', [ProductsController, 'viewProducts']).as('products.viewProducts')
-  })
-  .prefix('products')
-  .as('products')
+})
+.prefix('api')
+.as('api')
