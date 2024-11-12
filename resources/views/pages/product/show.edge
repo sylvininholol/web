@@ -82,35 +82,48 @@
 <body>
   <h1>Products List</h1>
 
-  <div id="products-container" class="products-container"></div>
-  <p id="no-products" class="no-products" style="display: none;">No products available.</p>
-
-  <!-- Botão para adicionar novo produto -->
-  <a href="/products/create" class="add-product-btn">Add New Product</a>
+  <div id="products-container"></div>
+  <p id="no-products" style="display: none;">Nenhum produto encontrado.</p>
 
   <script>
-    // Supondo que `products` seja uma variável JavaScript recebida dinamicamente do backend
-    const products = []; // Exemplo: substitua com os dados reais do backend
+    // URL da API para buscar os produtos
+    const apiURL = '/api/products';
 
+    // Selecionar os elementos de container e mensagem
     const productsContainer = document.getElementById("products-container");
     const noProductsMessage = document.getElementById("no-products");
 
-    if (products.length > 0) {
-      products.forEach(product => {
-        const productCard = document.createElement("div");
-        productCard.classList.add("product-card");
+    // Função para buscar produtos e renderizar
+    async function fetchProducts() {
+      try {
+        const response = await fetch(apiURL);
+        const products = await response.json();
 
-        productCard.innerHTML = `
-          <h2>${product.name}</h2>
-          <p class="price">$${product.price}</p>
-          <p class="description">${product.description}</p>
-        `;
+        // Verificar se há produtos
+        if (products.length > 0) {
+          products.forEach(product => {
+            const productCard = document.createElement("div");
+            productCard.classList.add("product-card");
 
-        productsContainer.appendChild(productCard);
-      });
-    } else {
-      noProductsMessage.style.display = "block";
+            productCard.innerHTML = `
+              <h2>${product.name}</h2>
+              <p class="price">$${product.price}</p>
+              <p class="description">${product.description}</p>
+            `;
+
+            productsContainer.appendChild(productCard);
+          });
+        } else {
+          noProductsMessage.style.display = "block";
+        }
+      } catch (error) {
+        console.error("Erro ao buscar produtos:", error);
+        noProductsMessage.style.display = "block";
+        noProductsMessage.textContent = "Erro ao buscar produtos.";
+      }
     }
+
+    fetchProducts();
   </script>
 </body>
 </html>
