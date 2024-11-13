@@ -81,49 +81,18 @@
 </head>
 <body>
   <h1>Products List</h1>
-
-  <div id="products-container"></div>
-  <p id="no-products" style="display: none;">Nenhum produto encontrado.</p>
-
-  <script>
-    // URL da API para buscar os produtos
-    const apiURL = '/api/products';
-
-    // Selecionar os elementos de container e mensagem
-    const productsContainer = document.getElementById("products-container");
-    const noProductsMessage = document.getElementById("no-products");
-
-    // Função para buscar produtos e renderizar
-    async function fetchProducts() {
-      try {
-        const response = await fetch(apiURL);
-        const products = await response.json();
-
-        // Verificar se há produtos
-        if (products.length > 0) {
-          products.forEach(product => {
-            const productCard = document.createElement("div");
-            productCard.classList.add("product-card");
-
-            productCard.innerHTML = `
-              <h2>${product.name}</h2>
-              <p class="price">$${product.price}</p>
-              <p class="description">${product.description}</p>
-            `;
-
-            productsContainer.appendChild(productCard);
-          });
-        } else {
-          noProductsMessage.style.display = "block";
-        }
-      } catch (error) {
-        console.error("Erro ao buscar produtos:", error);
-        noProductsMessage.style.display = "block";
-        noProductsMessage.textContent = "Erro ao buscar produtos.";
-      }
-    }
-
-    fetchProducts();
-  </script>
+  @if(auth.isAuthenticated) 
+    <p>Ta autenticado essa porra</p>
+  @else
+    <p>deu merda</p>
+  @end
+  @each(product in products)
+    <li>
+      <strong>{{ product.name }}</strong> - ${{ product.price }}
+      <p>{{ product.description }}</p>
+    </li>
+  @else
+    <p id="no-products">Nenhum produto encontrado.</p>
+  @end
 </body>
 </html>

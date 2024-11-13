@@ -63,7 +63,8 @@ export default class ProductsController {
     return view.render('pages/product/create')
   }
 
-  public async viewProducts({view}: HttpContext) {
-    return view.render('pages/product/show')
+  public async viewProducts({ view }: HttpContext) {
+    const products = await Product.all() 
+    return view.render('pages/product/show', { products})
   }
 }

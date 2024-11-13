@@ -1,4 +1,6 @@
+import auth from '@adonisjs/auth/services/main'
 import router from '@adonisjs/core/services/router'
+import { middleware } from './kernel.js'
 
 const UsersController = () => import('#controllers/users_controller')
 const ProductsController = () => import('#controllers/products_controller')
@@ -15,16 +17,19 @@ router.post('/register', [UsersController, 'register']).as('register')
 // Rotas de Views para Produtos
 router.group(() => {
   router.get('/create', [ProductsController, 'showCreate']).as('products.create.show')
-  router.get('/', [ProductsController, 'viewProducts']).as('products.viewProducts')
+  router.get('/', [ProductsController, 'viewProducts']).as('products.viewProducts').use(middleware.silentAuth())
 })
 .prefix('products')
 .as('products')
+
+router.get('/joao', async({auth}) => {
+  console.log(auth.user)
+}) .use(middleware.auth())
 
 /**
  * Rotas de API
  */
 router.group(() => {
-  
   // Rotas de autenticação na API
   router.post('/login', [UsersController, 'login']).as('api.login')
   
