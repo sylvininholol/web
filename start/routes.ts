@@ -1,4 +1,3 @@
-import auth from '@adonisjs/auth/services/main'
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 
@@ -9,6 +8,8 @@ const ProductsController = () => import('#controllers/products_controller')
  * Rotas de Views
  */
 router.get('/login', [UsersController, 'goToLoginPage']).as('loginPage')
+//Rota principal
+router.get('/', [ProductsController, 'viewHome']).as('home')
 
 // Rotas de registro de usuário
 router.get('/register', [UsersController, 'showRegister']).as('register.show')
