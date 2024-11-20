@@ -9,8 +9,12 @@ export default class extends BaseSchema {
       table.string('name').notNullable()
       table.decimal('price', 10, 2).notNullable()
       table.text('description').notNullable()
+      table.enum('category', [
+        'CAMISETA', 'REGATA', 'CALÇA', 'UNDERWEAR', 'SHORT', 'MEIA', 'CASACO', 'TÊNIS', 'BONÉ',
+      ]).notNullable()
+      table.json('product_links').notNullable()
 
-      table.timestamps(true, true) // Adiciona automaticamente created_at e updated_at
+      table.timestamps(true, true) // created_at e updated_at automáticos
     })
   }
 

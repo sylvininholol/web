@@ -14,6 +14,12 @@ export default class Product extends BaseModel {
   @column()
   declare description: string
 
+  @column()
+  declare category: string
+
+  @column({ serializeAs: 'product_links' })
+  declare productLinks: string[] | null // Vetor de URLs
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
