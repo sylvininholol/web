@@ -3,6 +3,24 @@ import { HttpContext } from "@adonisjs/core/http"
 import Product from "#models/product"
 
 export default class ProductsController {
+
+  private processProducts(products: Product[]) {
+    return products.map((product) => {
+      let links = [];
+  
+      if (typeof product.productLinks === 'string') {
+        links = JSON.parse(product.productLinks);
+      } else if (Array.isArray(product.productLinks)) {
+        links = product.productLinks;
+      }
+  
+      return {
+        ...product.toJSON(),
+        product_links: links,
+      };
+    });
+  }
+
   async index({ request, response }: HttpContext) {
     try {
       const page = request.input('page', 1);
@@ -70,20 +88,7 @@ export default class ProductsController {
   public async viewProducts({ view }: HttpContext) {
     const products = await Product.all()
 
-    const processedProducts = products.map((product) => {
-      let links = []
-  
-      if (typeof product.productLinks === 'string') {
-        links = JSON.parse(product.productLinks)
-      } else if (Array.isArray(product.productLinks)) {
-        links = product.productLinks
-      }
-  
-      return {
-        ...product.toJSON(),
-        product_links: links,
-      }
-    })
+    const processedProducts = this.processProducts(products)
 
     return view.render('pages/product/show', { products: processedProducts })
   }
@@ -91,20 +96,7 @@ export default class ProductsController {
   public async viewHome({ view }: HttpContext) {
     const products = await Product.all()
 
-    const processedProducts = products.map((product) => {
-      let links = []
-  
-      if (typeof product.productLinks === 'string') {
-        links = JSON.parse(product.productLinks)
-      } else if (Array.isArray(product.productLinks)) {
-        links = product.productLinks
-      }
-  
-      return {
-        ...product.toJSON(),
-        product_links: links,
-      }
-    })
+    const processedProducts = this.processProducts(products)
 
     return view.render('pages/home/index', { products: processedProducts })
   }
