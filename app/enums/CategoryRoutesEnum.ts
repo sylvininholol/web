@@ -1,11 +1,11 @@
 export enum CategoryRoutes {
     CAMISETAS = 'CAMISETA',
     REGATAS = 'REGATA',
-    CALCAS = 'CALCA',
+    CALCAS = 'CALÇA',
     UNDERWEAR = 'UNDERWEAR',
     SHORTS = 'SHORT',
     MEIA = 'MEIA',
     CASACOS = 'CASACO',
-    TENIS = 'TENIS',
-    BONES = 'BONES',
+    TENIS = 'TÊNIS',
+    BONES = 'BONÉ',
   }
