@@ -7,24 +7,24 @@ export default class ProductsController {
     try {
       const page = request.input('page', 1);
       const limit = 10;
-  
+
       const payload = request.only(['name']);
-  
+
       const query = Product.query();
-  
+
       if (payload.name && payload.name.length > 0) {
         query.where('name', 'like', `%${payload.name}%`);
       }
-  
+
       const products = await query.paginate(page, limit);
-  
+
       return products;
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
       return response.status(500).json({ message: 'Erro ao buscar produtos' });
     }
   }
-  
+
 
   async show({ params }: HttpContext) {
     const product = await Product.findOrFail(params.id)
@@ -33,14 +33,18 @@ export default class ProductsController {
   }
 
   async store({ request, response }: HttpContext) {
-    const payload = request.only(['name', 'price', 'description'])
-  
+    const payload = request.only(['name', 'price', 'description', 'category', 'product_links'])
+
+    if (payload.product_links && Array.isArray(payload.product_links)) {
+      payload.product_links = JSON.stringify(payload.product_links) // Converte o array para string JSON
+    }
+
     const product = await Product.create(payload)
-  
+
     return response.redirect().toRoute('/products') // Certifique-se que está redirecionando para a rota correta
   }
 
-  async patch({ params, request}: HttpContext) {
+  async patch({ params, request }: HttpContext) {
     const product = await Product.findOrFail(params.id)
 
     const payload = await request.only(['name', 'price', 'description'])
@@ -56,19 +60,52 @@ export default class ProductsController {
 
     await product.delete()
 
-    return { sucess: `${params.id} removido`}
+    return { sucess: `${params.id} removido` }
   }
 
-  public async showCreate({view}: HttpContext) {
+  public async showCreate({ view }: HttpContext) {
     return view.render('pages/product/create')
   }
 
   public async viewProducts({ view }: HttpContext) {
-    const products = await Product.all() 
-    return view.render('pages/product/show', { products })
+    const products = await Product.all()
+
+    const processedProducts = products.map((product) => {
+      let links = []
+  
+      if (typeof product.productLinks === 'string') {
+        links = JSON.parse(product.productLinks)
+      } else if (Array.isArray(product.productLinks)) {
+        links = product.productLinks
+      }
+  
+      return {
+        ...product.toJSON(),
+        product_links: links,
+      }
+    })
+
+    return view.render('pages/product/show', { products: processedProducts })
   }
 
   public async viewHome({ view }: HttpContext) {
-    return view.render('pages/home/index')
+    const products = await Product.all()
+
+    const processedProducts = products.map((product) => {
+      let links = []
+  
+      if (typeof product.productLinks === 'string') {
+        links = JSON.parse(product.productLinks)
+      } else if (Array.isArray(product.productLinks)) {
+        links = product.productLinks
+      }
+  
+      return {
+        ...product.toJSON(),
+        product_links: links,
+      }
+    })
+
+    return view.render('pages/home/index', { products: processedProducts })
   }
 }
