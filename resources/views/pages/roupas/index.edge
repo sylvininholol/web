@@ -184,7 +184,7 @@
         <div class="flex justify-center lg:justify-between items-center">
             <div><a href="/" class="text-sm text-black">Home</a> | <a href="/roupas"
                     class="text-sm text-black">Roupas</a> /
-                <a href="/roupas/camisetas" class="text-sm text-black">Camisetas</a>
+                <a href="/roupas/{{categoryTitle}}" class="text-sm text-black">{{ categoryTitle }}</a>
             </div>
             <div class="hidden lg:block">
                 <div><select name="sort_options" id="sort_options" onchange="sortResult(this.value)"
