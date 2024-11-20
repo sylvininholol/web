@@ -1,5 +1,5 @@
 import { HttpContext } from "@adonisjs/core/http"
-import { CategoryRoutes } from "../enums/CategoryRoutesEnum.js";
+import { CategoryRoutes, CategoryTitles } from "../enums/CategoryRoutesEnum.js";
 import Product from "#models/product"
 
 export default class ClothesController {
@@ -23,9 +23,9 @@ export default class ClothesController {
 
     public async viewCategory({ params, view }: HttpContext) {
         const category = params.category.toUpperCase(); // Recebe a categoria da rota
-        const categoryRoute: any = CategoryRoutes[category as keyof typeof CategoryRoutes] || "nada";
+        const categoryRoute: any = CategoryRoutes[category as keyof typeof CategoryRoutes] || "erro";
         const products = await Product.query().where('category', categoryRoute).exec();
-        const categoryTitle = category.charAt(0) + category.slice(1).toLowerCase();
+        const categoryTitle: any = CategoryTitles[category as keyof typeof CategoryTitles] || "erro"
 
         const processedProducts = this.processProducts(products)
 

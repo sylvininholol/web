@@ -9,3 +9,15 @@ export enum CategoryRoutes {
     TENIS = 'TÊNIS',
     BONES = 'BONÉ',
   }
+
+export enum CategoryTitles {
+  CAMISETAS = 'CAMISETAS',
+  REGATAS = 'REGATAS',
+  CALCAS = 'CALÇAS',
+  UNDERWEAR = 'UNDERWEAR',
+  SHORTS = 'SHORTS',
+  MEIA = 'MEIA',
+  CASACOS = 'CASACOS',
+  TENIS = 'TÊNIS',
+  BONES = 'BONÉS',
+}
