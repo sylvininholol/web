@@ -1,10 +1,9 @@
-@layouts.appWithHeader({ title: "Página Inicial" }) 
+@layouts.appWithHeader({ title: "Página Inicial" })
 <!-- Header -->
 
 <main>
 
-
-    <div class="mt-6 lg:mt-14 px-4 lg:px-8"> <!-- Adicionei px-4 para espaçamento horizontal -->
+    <div class="mt-6 lg:mt-14 px-4 lg:px-8">
         <div class="container mx-auto">
             <h2 class="uppercase text-lg text-center block font-semibold">Você pode gostar</h2>
         </div>
@@ -12,9 +11,8 @@
             <div class="swiper-wrapper flex-row" id="swiper-wrapper-2b71005321dde0508" aria-live="polite">
                 @each(product in products)
                 <div class="swiper-slide">
-                    <a href="/{{ product.category }}/{{ product.id }}">
+                    <a href="/roupas/{{ categoryToRoute(product.category) }}/{{ product.id }}">
                         <div class="bg-white rounded-lg shadow-md overflow-hidden group mx-2">
-                            <!-- Adicionei mx-2 para espaçamento entre slides -->
                             <div class="relative pb-2/3">
                                 @if(product.product_links.length > 0)
                                 <img src="{{ product.product_links[0] }}" alt="{{ product.name }}"
@@ -70,7 +68,6 @@
         });
     </script>
     <script>
-        // Função para mostrar/esconder o menu responsivo
         document.getElementById('menu-toggle').addEventListener('click', () => {
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');

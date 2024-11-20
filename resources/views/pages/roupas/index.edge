@@ -1,6 +1,26 @@
-@layouts.appWithHeader( {title: `${categoryTitle.charAt(0)}${categoryTitle.slice(1).toLowerCase()}` } ) 
-    
+@layouts.appWithHeader( {title: `${categoryTitle.charAt(0)}${categoryTitle.slice(1).toLowerCase()}` } )
+
 <main>
+
+
+    <div class="container mx-auto mt-6">
+        <div class="flex justify-center lg:justify-between items-center">
+            <div><a href="/" class="text-sm text-black">Home</a> | <a href="/roupas"
+                    class="text-sm text-black">Roupas</a> / <a href="/roupas/{{ categoryTitle.toLowerCase() }}"
+                    class="text-sm text-black">{{`${categoryTitle.charAt(0)}${categoryTitle.slice(1).toLowerCase()}`}}</a></div>
+            <div class="hidden lg:block">
+                <div><select name="sort_options" id="sort_options" onchange="sortResult(this.value)"
+                        class="bg-white text-black text-sm border-none focus:outline-none focus:shadow-none">
+                        <option value="" selected="" disabled="" hidden="">Ordenar por</option>
+                        <option value="NAME:ASC">Nome A-Z</option>
+                        <option value="SALES:DESC">Vendas</option>
+                        <option value="PRICE:ASC">Menor Preço</option>
+                        <option value="PRICE:DESC">Maior Preço</option>
+                        <option value="RELEASE_DATE:DESC">Data Lançamento</option>
+                    </select></div>
+            </div>
+        </div>
+    </div>
 
 
     <div class="mt-6 lg:mt-14 px-4 lg:px-8">
@@ -9,7 +29,8 @@
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 lg:mt-14">
             @each(product in products)
-            <a href="{{ product.id }}" class="block bg-white rounded-lg shadow-md overflow-hidden group mx-2">
+            <a href="/roupas/{{ categoryRoute.toLowerCase() }}/{{ product.id }}"
+                class="block bg-white rounded-lg shadow-md overflow-hidden group mx-2">
                 <div class="bg-white rounded-lg shadow-md overflow-hidden group">
                     <div class="relative pb-2/3">
                         @if(product.product_links.length > 0)

@@ -15,6 +15,7 @@ router.get('/', [ProductsController, 'viewHome']).as('home')
 
 //Rotas de roupas
   router.get('/roupas/:category', [ClothesController, 'viewCategory']).as('roupas')
+  router.get('roupas/:category/:id', [ClothesController, 'viewProducts']).as('viewProducts')
 
 // Rotas de registro de usuário
 router.get('/register', [UsersController, 'showRegister']).as('register.show')

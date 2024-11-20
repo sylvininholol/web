@@ -1,19 +1,53 @@
 import { HttpContext } from "@adonisjs/core/http"
 
 import Product from "#models/product"
+import { CategoryTitles } from "../enums/CategoryRoutesEnum.js";
 
 export default class ProductsController {
+
+  private removerAcentos(texto: string) {
+    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+
+  private mapCategoryRoutes(products: Product[]) {
+    return products.map((product) => {
+        const category = product.category.toUpperCase();
+        const mappedCategory = this.categoryToRoute(category);
+        return { id: product.id, category: mappedCategory };
+    });
+}
+
+
+  private categoryToRoute(category: string): string {
+    const mapCategories: Record<string, string> = {
+      CAMISETA: "camisetas",
+      REGATA: "regatas",
+      CALÇA: "calcas",
+      UNDERWEAR: "underwear",
+      SHORT: "shorts",
+      MEIA: "meia",
+      CASACO: "casacos",
+      TÊNIS: "tenis",
+      BONÉ: "bones"
+    };
+  
+    return (
+      mapCategories[category.toUpperCase()] || 
+      category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    );
+  }
+  
 
   private processProducts(products: Product[]) {
     return products.map((product) => {
       let links = [];
-  
+
       if (typeof product.productLinks === 'string') {
         links = JSON.parse(product.productLinks);
       } else if (Array.isArray(product.productLinks)) {
         links = product.productLinks;
       }
-  
+
       return {
         ...product.toJSON(),
         product_links: links,
@@ -94,10 +128,13 @@ export default class ProductsController {
   }
 
   public async viewHome({ view }: HttpContext) {
+
     const products = await Product.all()
 
     const processedProducts = this.processProducts(products)
 
-    return view.render('pages/home/index', { products: processedProducts })
+    const categoryToRoute = this.categoryToRoute;
+
+    return view.render('pages/home/index', { products: processedProducts, categoryToRoute })
   }
 }
