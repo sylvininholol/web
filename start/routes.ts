@@ -3,13 +3,18 @@ import { middleware } from './kernel.js'
 
 const UsersController = () => import('#controllers/users_controller')
 const ProductsController = () => import('#controllers/products_controller')
+const ClothesController = () => import('#controllers/clothes_controller')
 
 /**
  * Rotas de Views
  */
 router.get('/login', [UsersController, 'goToLoginPage']).as('loginPage')
+
 //Rota principal
 router.get('/', [ProductsController, 'viewHome']).as('home')
+
+//Rotas de roupas
+  router.get('/roupas/:category', [ClothesController, 'viewCategory']).as('roupas')
 
 // Rotas de registro de usuário
 router.get('/register', [UsersController, 'showRegister']).as('register.show')
