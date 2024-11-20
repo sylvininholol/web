@@ -4,89 +4,86 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Product</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .container {
-      background-color: #fff;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      width: 400px;
-    }
-
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: bold;
-    }
-
-    input[type="text"],
-    input[type="number"],
-    textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }
-
-    button {
-      width: 100%;
-      padding: 10px;
-      background-color: #5cb85c;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    button:hover {
-      background-color: #4cae4c;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <div class="container">
-    <h1>Create Product</h1>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-lg">
+    <h1 class="text-xl font-bold mb-4 text-center">Create Product</h1>
     <form action="/api/products/create" method="POST">
-      <div class="form-group">
-        <label for="name">Product Name:</label>
-        <input type="text" id="name" name="name" required>
+      <!-- Nome -->
+      <div class="mb-4">
+        <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Product Name:</label>
+        <input type="text" id="name" name="name" required
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
       </div>
 
-      <div class="form-group">
-        <label for="price">Price:</label>
-        <input type="number" id="price" name="price" step="0.01" required>
+      <!-- Preço -->
+      <div class="mb-4">
+        <label for="price" class="block text-gray-700 text-sm font-bold mb-2">Price:</label>
+        <input type="number" id="price" name="price" step="0.01" required
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
       </div>
 
-      <div class="form-group">
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" rows="4" cols="50" required></textarea>
+      <!-- Descrição -->
+      <div class="mb-4">
+        <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Description:</label>
+        <textarea id="description" name="description" rows="4" required
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
       </div>
 
-      <button type="submit">Create Product</button>
+      <!-- Categoria -->
+      <div class="mb-4">
+        <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Category:</label>
+        <select id="category" name="category" required
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+          <option value="CAMISETA">Camiseta</option>
+          <option value="REGATA">Regata</option>
+          <option value="CALÇA">Calça</option>
+          <option value="UNDERWEAR">Underwear</option>
+          <option value="SHORT">Short</option>
+          <option value="MEIA">Meia</option>
+          <option value="CASACO">Casaco</option>
+          <option value="TÊNIS">Tênis</option>
+          <option value="BONÉ">Boné</option>
+        </select>
+      </div>
+
+      <!-- Links -->
+      <div id="links-container" class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Photos (URLs):</label>
+        <div class="flex space-x-2 mb-2">
+          <input type="url" name="product_links[]" placeholder="Enter URL" required
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+          <button type="button" onclick="addLinkField()" 
+            class="bg-blue-500 text-white px-2 py-1 rounded">+</button>
+        </div>
+      </div>
+
+      <!-- Botão -->
+      <button type="submit"
+        class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        Create Product
+      </button>
     </form>
   </div>
+
+  <script>
+    function addLinkField() {
+      const container = document.getElementById('links-container');
+      const div = document.createElement('div');
+      div.className = 'flex space-x-2 mb-2';
+      div.innerHTML = `
+        <input type="url" name="product_links[]" placeholder="Enter URL"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        <button type="button" onclick="removeLinkField(this)" 
+          class="bg-red-500 text-white px-2 py-1 rounded">-</button>
+      `;
+      container.appendChild(div);
+    }
+
+    function removeLinkField(button) {
+      button.parentElement.remove();
+    }
+  </script>
 </body>
 </html>
