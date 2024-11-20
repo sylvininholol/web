@@ -23,7 +23,7 @@ router.post('/register', [UsersController, 'register']).as('register')
 
 // Rotas de Views para Produtos
 router.group(() => {
-  router.get('/create', [ProductsController, 'showCreate']).as('products.create.show')
+  router.get('/create', [ProductsController, 'showCreate']).as('products.create.show').use(middleware.silentAuth())
   router.get('/', [ProductsController, 'viewProducts']).as('products.viewProducts').use(middleware.silentAuth())
 })
 .prefix('products')

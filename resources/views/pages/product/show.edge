@@ -1,46 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Products List</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-100 font-sans">
   <div class="container mx-auto px-4 py-6">
     <h1 class="text-4xl font-bold text-center text-gray-800 mb-10">Lista de Produtos</h1>
 
     @if(auth.isAuthenticated)
-      <p class="text-center text-green-600 font-medium">Você está autenticado!</p>
-    @else
-      <p class="text-center text-red-600 font-medium">Você não está autenticado.</p>
-    @end
-
+    <p class="text-center text-green-600 font-medium">Você está autenticado!</p>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       @each(product in products)
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
-          <div class="relative pb-2/3">
-            @if(product.product_links.length > 0)
-              <img 
-                src="{{ product.product_links[0] }}" 
-                alt="{{ product.name }}" 
-                class="w-full h-48 object-cover"
-              />
-            @else
-              <div class="w-full h-48 flex items-center justify-center bg-gray-200 text-gray-500">
-                Sem imagem
-              </div>
-            @end
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="relative pb-2/3">
+          @if(product.product_links.length > 0)
+          <img src="{{ product.product_links[0] }}" alt="{{ product.name }}" class="w-full h-48 object-cover" />
+          @else
+          <div class="w-full h-48 flex items-center justify-center bg-gray-200 text-gray-500">
+            Sem imagem
           </div>
-          <div class="p-4">
-            <h2 class="text-xl font-semibold text-gray-800">{{ product.name }}</h2>
-            <p class="text-gray-600 text-sm mb-2">{{ product.description }}</p>
-            <p class="text-lg font-bold text-green-600 mb-4">R$ {{ product.price }}</p>
-            <p class="text-sm text-gray-500">Categoria: {{ product.category }}</p>
-          </div>
+          @end
         </div>
+        <div class="p-4">
+          <h2 class="text-xl font-semibold text-gray-800">{{ product.name }}</h2>
+          <p class="text-gray-600 text-sm mb-2">{{ product.description }}</p>
+          <p class="text-lg font-bold text-green-600 mb-4">R$ {{ product.price }}</p>
+          <p class="text-sm text-gray-500">Categoria: {{ product.category }}</p>
+        </div>
+      </div>
       @else
-        <p class="text-center text-gray-500 text-lg col-span-full">Nenhum produto encontrado.</p>
+      <p class="text-center text-gray-500 text-lg col-span-full">Nenhum produto encontrado.</p>
       @end
     </div>
 
@@ -51,4 +45,10 @@
     </div>
   </div>
 </body>
+@else
+<div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md w-full max-w-lg mx-auto mt-10">
+  <p class="font-medium">Você não está autenticado.</p>
+</div>
+@end
+
 </html>
