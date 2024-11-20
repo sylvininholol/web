@@ -1,8 +1,6 @@
 import Hash from '@adonisjs/core/services/hash'
 import type { HttpContext } from '@adonisjs/core/http'
 import User from '#models/user'
-import { messages } from '@vinejs/vine/defaults'
-import { Database } from 'sqlite3'
 import { registerValidator } from '#validators/register'
 
 let sequence = 2
