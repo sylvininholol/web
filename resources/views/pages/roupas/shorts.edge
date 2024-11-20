@@ -179,16 +179,36 @@
         </div>
     </header>
 
-    <div class="mt-6 lg:mt-14 px-4 lg:px-8"> <!-- Adicionei px-4 para espaçamento horizontal -->
+    <!--Filtros e Rota-->
+    <div class="container mx-auto">
+        <div class="flex justify-center lg:justify-between items-center">
+            <div><a href="/" class="text-sm text-black">Home</a> | <a href="/roupas"
+                    class="text-sm text-black">Roupas</a> /
+                <a href="/roupas/camisetas" class="text-sm text-black">Camisetas</a>
+            </div>
+            <div class="hidden lg:block">
+                <div><select name="sort_options" id="sort_options" onchange="sortResult(this.value)"
+                        class="bg-white text-black text-sm border-none focus:outline-none focus:shadow-none">
+                        <option value="" selected="" disabled="" hidden="">Ordenar por</option>
+                        <option value="NAME:ASC">Nome A-Z</option>
+                        <option value="SALES:DESC">Vendas</option>
+                        <option value="PRICE:ASC">Menor Preço</option>
+                        <option value="PRICE:DESC">Maior Preço</option>
+                        <option value="RELEASE_DATE:DESC">Data Lançamento</option>
+                    </select></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-6 lg:mt-14 px-4 lg:px-8">
         <div class="container mx-auto">
-            <h2 class="uppercase text-lg text-center block font-semibold">Você pode gostar</h2>
+            <h2 class="uppercase text-lg text-center block font-semibold">Roupas / Shorts</h2>
         </div>
         <div class="swiper mySwiper spots__wrapper mt-6 lg:mt-14 swiper-initialized swiper-horizontal">
             <div class="swiper-wrapper flex-row" id="swiper-wrapper-2b71005321dde0508" aria-live="polite">
                 @each(product in products)
                 <div class="swiper-slide">
                     <div class="bg-white rounded-lg shadow-md overflow-hidden group mx-2">
-                        <!-- Adicionei mx-2 para espaçamento entre slides -->
                         <div class="relative pb-2/3">
                             @if(product.product_links.length > 0)
                             <img src="{{ product.product_links[0] }}" alt="{{ product.name }}"
@@ -217,38 +237,6 @@
         <div class="swiper-button-next"></div>
     </div>
 
-
-
-
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-    <script>
-        const swiper = new Swiper('.mySwiper', {
-            slidesPerView: 4,
-            spaceBetween: 20,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            grid: {
-                rows: 1,
-            },
-            breakpoints: {
-                640: { slidesPerView: 2 },
-                768: { slidesPerView: 3 },
-                1024: { slidesPerView: 4 },
-            },
-        });
-    </script>
-    <script>
-        // Função para mostrar/esconder o menu responsivo
-        document.getElementById('menu-toggle').addEventListener('click', () => {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        });
-    </script>
 </body>
 
 </html>
