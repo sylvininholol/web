@@ -10,7 +10,7 @@ export default class extends BaseSchema {
       table.decimal('price', 10, 2).notNullable()
       table.text('description').notNullable()
       table.enum('category', [
-        'CAMISETA', 'REGATA', 'CALÇA', 'UNDERWEAR', 'SHORT', 'MEIA', 'CASACO', 'TÊNIS', 'BONÉ',
+        'CAMISETA', 'REGATA', 'CALCA', 'UNDERWEAR', 'SHORT', 'MEIA', 'CASACO', 'TENIS', 'BONE',
       ]).notNullable()
       table.json('product_links').notNullable()
 
