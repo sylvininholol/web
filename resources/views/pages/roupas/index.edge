@@ -202,39 +202,31 @@
 
     <div class="mt-6 lg:mt-14 px-4 lg:px-8">
         <div class="container mx-auto">
-            <h2 class="uppercase text-lg text-center block font-semibold">Roupas / Regatas</h2>
+            <h2 class="uppercase text-lg text-center block font-semibold">Roupas / {{ categoryTitle }}</h2>
         </div>
-        <div class="swiper mySwiper spots__wrapper mt-6 lg:mt-14 swiper-initialized swiper-horizontal">
-            <div class="swiper-wrapper flex-row" id="swiper-wrapper-2b71005321dde0508" aria-live="polite">
-                @each(product in products)
-                <div class="swiper-slide">
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden group mx-2">
-                        <div class="relative pb-2/3">
-                            @if(product.product_links.length > 0)
-                            <img src="{{ product.product_links[0] }}" alt="{{ product.name }}"
-                                class="w-full group-hover:hidden" />
-                            <img src="{{ product.product_links[1] }}" alt="{{ product.name }} hover"
-                                class="w-full object-cover hidden group-hover:block" />
-                            @else
-                            <div class="w-full h-48 flex items-center justify-center bg-gray-200 text-gray-500">
-                                Sem imagem
-                            </div>
-                            @end
-                        </div>
-                        <div class="p-4">
-                            <h2 class="text-xl font-semibold text-gray-800">{{ product.name }}</h2>
-                            <p class="text-lg font-bold text-green-600 mb-4">R$ {{ product.price }}</p>
-                        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 lg:mt-14">
+            @each(product in products)
+            <div class="bg-white rounded-lg shadow-md overflow-hidden group">
+                <div class="relative pb-2/3">
+                    @if(product.product_links.length > 0)
+                    <img src="{{ product.product_links[0] }}" alt="{{ product.name }}" class="w-full group-hover:hidden" />
+                    <img src="{{ product.product_links[1] }}" alt="{{ product.name }} hover"
+                        class="w-full object-cover hidden group-hover:block" />
+                    @else
+                    <div class="w-full h-48 flex items-center justify-center bg-gray-200 text-gray-500">
+                        Sem imagem
                     </div>
+                    @end
                 </div>
-                @else
-                <p class="text-center text-gray-500 text-lg col-span-full">Nenhum produto encontrado.</p>
-                @end
+                <div class="p-4">
+                    <h2 class="text-xl font-semibold text-gray-800">{{ product.name }}</h2>
+                    <p class="text-lg font-bold text-green-600 mb-4">R$ {{ product.price }}</p>
+                </div>
             </div>
+            @else
+            <p class="text-center text-gray-500 text-lg col-span-full">Nenhum produto encontrado.</p>
+            @end
         </div>
-        <!-- Navigation Buttons -->
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
     </div>
 
 </body>
