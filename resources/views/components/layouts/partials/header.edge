@@ -1,0 +1,157 @@
+<header class="sticky top-0 bg-white z-10">
+    <div class="flex items-center justify-center bg-black p-3 text-center">
+        <strong class="text-white text-xs lg:text-sm">Loja de Roupas Jorge e Sylvino</strong>
+    </div>
+    <div class="container mx-auto">
+        <div class="flex items-center justify-between gap-2 py-4 lg:py-7 relative">
+            <form onsubmit=""
+                class="z-[2] search__bar h-[67px] lg:h-auto top-11 lg:top-auto bg-white lg:bg-transparent left-0 lg:left-auto w-full lg:w-80 hidden lg:flex items-center fixed lg:relative">
+                <input id="search-bar" type="search" placeholder="Procurar por" autocomplete="off"
+                    class="bg-transparent lg:bg-[#EFEFEF] w-full rounded-[38px] h-12 text-sm text-black px-6 border-none focus:shadow-none focus:ring-0 placeholder:text-inherit focus:outline-none">
+                <button type="submit" aria-label="Fazer uma pesquisa" class="absolute right-20 lg:right-6">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M7.14043 13.2608C3.76505 13.2608 1.02006 10.5158 1.02006 7.14043C1.02006 3.76505 3.76505 1.02006 7.14043 1.02006C10.5158 1.02006 13.2608 3.76505 13.2608 7.14043C13.2608 10.5158 10.5158 13.2608 7.14043 13.2608ZM12.5304 11.8093C13.6178 10.5566 14.2809 8.92554 14.2809 7.14043C14.2809 3.20401 11.0768 0 7.14043 0C3.20401 0 0 3.20401 0 7.14043C0 11.0768 3.20401 14.2809 7.14043 14.2809C8.92554 14.2809 10.5566 13.6178 11.8093 12.5304L16.4699 17.1921L17.1921 16.4699L12.5304 11.8093Z"
+                            fill="#1D1D1B"></path>
+                    </svg>
+                </button>
+            </form>
+            <!-- Logo -->
+            <div class="absolute translate-x-[50%] right-[50%]">
+                <img src="logo.png" alt="Logo da Loja" class="h-10 w-10">
+            </div>
+
+            <!-- Botões: Meu Perfil, Curtidos e Carrinho-->
+            <div class="flex gap-5 items-center"><a href="" class="hidden lg:block" aria-label="Minha conta"><svg
+                        width="19" height="22" viewBox="0 0 19 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="9.49956" cy="5.9105" r="4.92857" stroke="black"></circle>
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M3.88357 9.72124C1.61021 10.6104 0 12.8226 0 15.411V18.8038C0 20.3029 1.21523 21.5181 2.71429 21.5181H16.2857C17.7848 21.5181 19 20.3029 19 18.8038V15.411C19 12.8221 17.3891 10.6095 15.115 9.7207C14.9162 10.0133 14.6951 10.2895 14.4541 10.5469C16.5111 11.2066 18 13.1349 18 15.411V18.8038C18 19.7506 17.2325 20.5181 16.2857 20.5181H2.71429C1.76751 20.5181 1 19.7506 1 18.8038V15.411C1 13.1354 2.48827 11.2074 4.54455 10.5473C4.30359 10.2899 4.08245 10.0138 3.88357 9.72124Z"
+                            fill="black"></path>
+                    </svg></a> <a href="/lista-de-desejos" class="hidden lg:block" aria-label="Lista de desejos"><svg
+                        width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M0 6.30298C0.0682978 5.94892 0.115028 5.58917 0.207974 5.24182C0.843195 2.86504 2.2795 1.26193 4.71922 0.739611C6.77945 0.298319 8.52593 0.959483 9.95607 2.49291C10.142 2.69265 10.3089 2.91046 10.4973 3.13446C10.6545 2.94504 10.8039 2.75252 10.9662 2.57136C11.851 1.58348 12.9144 0.897547 14.2383 0.690578C15.7932 0.446965 17.227 0.778837 18.4995 1.71407C19.8572 2.71226 20.6136 4.09601 20.895 5.7404C21.2155 7.61086 20.7913 9.33318 19.774 10.9177C18.8764 12.3159 17.7179 13.4818 16.487 14.574C14.8026 16.0692 13.0931 17.5355 11.3939 19.0142C10.8131 19.5195 10.1851 19.5221 9.60483 19.0184C7.89481 17.5319 6.17453 16.0568 4.48044 14.5518C3.26083 13.4679 2.11056 12.3123 1.2232 10.9239C0.596707 9.94273 0.168947 8.88518 0.0405679 7.71718C0.0338921 7.65679 0.013865 7.59847 0 7.53911C0 7.12724 0 6.71485 0 6.30298ZM10.4906 18.1394C10.5276 18.111 10.5502 18.096 10.5708 18.0785C12.1329 16.7242 13.6996 15.375 15.2551 14.0129C16.2754 13.119 17.2588 12.1848 18.1056 11.1174C18.8938 10.1244 19.5198 9.05189 19.6913 7.76311C19.8829 6.32827 19.6266 4.99149 18.8065 3.78685C17.3194 1.60206 14.038 1.05961 12.0312 3.26039C11.7149 3.60723 11.4499 4.00259 11.1721 4.38401C10.9035 4.75253 10.4973 4.88982 10.1389 4.67407C9.98329 4.58014 9.85337 4.41962 9.75221 4.26323C9.3645 3.66555 8.91261 3.12775 8.34414 2.69833C7.47732 2.04439 6.50215 1.77342 5.42069 1.88336C4.255 2.00207 3.27983 2.496 2.50596 3.37859C1.81836 4.16259 1.4435 5.08801 1.29971 6.11821C1.14155 7.24956 1.29971 8.32983 1.77831 9.36467C2.23329 10.3474 2.86953 11.2083 3.62646 11.9649C4.6042 12.942 5.6148 13.8885 6.64491 14.8098C7.90508 15.9371 9.20017 17.024 10.4917 18.1389L10.4906 18.1394Z"
+                            fill="black"></path>
+                    </svg></a> <button class="block lg:hidden" onclick="toggleSearch()"
+                    aria-label="Fazer uma busca"><svg class="w-5" width="16" height="21" viewBox="0 0 14 14" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M6.13964 10.6206C3.51983 10.6206 1.38929 8.49003 1.38929 5.8702C1.38929 3.25039 3.51983 1.11985 6.13964 1.11985C8.75947 1.11985 10.89 3.25039 10.89 5.8702C10.89 8.49003 8.75947 10.6206 6.13964 10.6206ZM10.3231 9.49393C11.1671 8.52169 11.6817 7.25572 11.6817 5.8702C11.6817 2.81493 9.19491 0.328125 6.13964 0.328125C3.08437 0.328125 0.597565 2.81493 0.597565 5.8702C0.597565 8.92547 3.08437 11.4123 6.13964 11.4123C7.52516 11.4123 8.79113 10.8977 9.76337 10.0537L13.3808 13.6719L13.9413 13.1113L10.3231 9.49393Z"
+                            fill="#1D1D1B"></path>
+                    </svg></button> <button onclick="setCartDivVisibility()" aria-label="Ver meu carrinho"
+                    class="relative"><svg width="16" height="21" viewBox="0 0 16 21" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M16 17.3554L14.8477 4.36891C14.8269 4.11192 14.6114 3.9171 14.3503 3.9171H11.9212C11.9171 1.75751 10.1596 0 8 0C5.84041 0 4.0829 1.75751 4.07876 3.9171H1.64974C1.39275 3.9171 1.1772 4.11192 1.15233 4.36891L0 17.3554C0 17.372 0 17.3845 0 17.401C0 18.8477 1.33057 20.0249 2.96373 20.0249H13.0363C14.6694 20.0249 16 18.8477 16 17.401C16 17.3845 16 17.372 16 17.3554ZM8 0.994819C9.61244 0.994819 10.9223 2.30466 10.9264 3.9171H5.07357C5.07772 2.30466 6.38756 0.994819 8 0.994819ZM13.0363 19.0259H2.96373C1.88601 19.0259 1.00725 18.3088 0.994819 17.4176L2.1057 4.91192H4.07876V6.65699C4.07876 6.93057 4.30259 7.1544 4.57617 7.1544C4.84974 7.1544 5.07357 6.93057 5.07357 6.65699V4.91192H10.9264V6.65699C10.9264 6.93057 11.1503 7.1544 11.4238 7.1544C11.6974 7.1544 11.9212 6.93057 11.9212 6.65699V4.91192H13.8943L15.0052 17.4218C14.9927 18.3088 14.114 19.0259 13.0363 19.0259Z"
+                            fill="#1D1D1B"></path>
+                    </svg> <span id="cart-qty-label"
+                        class="absolute bg-black text-white flex items-center justify-center rounded-full min-w-[18px] min-h-[18px] text-xs -top-[9px] -right-[13px]">0</span></button>
+            </div>
+
+
+            <!-- Menu Responsivo -->
+            <div class="md:hidden flex items-center">
+                <button class="text-xl text-white" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <!-- NAVBAR -->
+        <nav id="navbar"
+            class="navbar hidden lg:block h-full lg:h-auto w-5/6 lg:w-full z-40 lg:z-auto border-solid border-t border-[#DAE2E9] py-5 px-4 lg:px-0 lg:py-5 fixed lg:relative bg-white lg:bg-transparent top-0 lg:top-auto left-0 lg:left-auto">
+            <button type="button" class="lg:hidden absolute top-5 right-3" onclick="toggleMenu()"><svg class="w-3 h-3"
+                    width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M0.346903 8.00374L0 7.65496L3.65123 4.00187L0 0.348771L0.346903 0L4 3.6531L7.6531 0L8 0.348771L4.34877 4.00187L8 7.65496L7.6531 8.00374L4 4.35064L0.346903 8.00374Z"
+                        fill="black"></path>
+                </svg></button>
+            <ul class="mt-5 lg:mt-0 flex w-full justify-center gap-4 lg:gap-14 flex-col lg:flex-row">
+                </li>
+                <li class="has-sub relative group menu-geral roupas"><a href="/roupas/camisetas"
+                        class="text-[#1D1D1B] text-sm flex lg:inline items-center justify-between">CAMISETAS<svg
+                            class="nav__arrow lg:hidden transition-all duration-300" width="10" height="7"
+                            viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M5 6.44783L0 1.44784L0.895833 0.552002L5 4.677L9.10417 0.572835L10 1.46867L5 6.44783Z"
+                                fill="black"></path>
+                        </svg></a>
+                </li>
+                <li class="has-sub relative group menu-geral roupas"><a href="/roupas/regatas"
+                        class="text-[#1D1D1B] text-sm flex lg:inline items-center justify-between">REGATAS<svg
+                            class="nav__arrow lg:hidden transition-all duration-300" width="10" height="7"
+                            viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M5 6.44783L0 1.44784L0.895833 0.552002L5 4.677L9.10417 0.572835L10 1.46867L5 6.44783Z"
+                                fill="black"></path>
+                        </svg></a>
+                <li class="has-sub relative group menu-geral roupas"><a href="/roupas/calcas"
+                        class="text-[#1D1D1B] text-sm flex lg:inline items-center justify-between">CALÇAS<svg
+                            class="nav__arrow lg:hidden transition-all duration-300" width="10" height="7"
+                            viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M5 6.44783L0 1.44784L0.895833 0.552002L5 4.677L9.10417 0.572835L10 1.46867L5 6.44783Z"
+                                fill="black"></path>
+                        </svg></a>
+                <li class="has-sub relative group menu-geral roupas"><a href="/roupas/underwear"
+                        class="text-[#1D1D1B] text-sm flex lg:inline items-center justify-between">UNDERWEAR<svg
+                            class="nav__arrow lg:hidden transition-all duration-300" width="10" height="7"
+                            viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M5 6.44783L0 1.44784L0.895833 0.552002L5 4.677L9.10417 0.572835L10 1.46867L5 6.44783Z"
+                                fill="black"></path>
+                        </svg></a>
+                <li class="has-sub relative group menu-geral roupas"><a href="/roupas/shorts"
+                        class="text-[#1D1D1B] text-sm flex lg:inline items-center justify-between">SHORTS<svg
+                            class="nav__arrow lg:hidden transition-all duration-300" width="10" height="7"
+                            viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M5 6.44783L0 1.44784L0.895833 0.552002L5 4.677L9.10417 0.572835L10 1.46867L5 6.44783Z"
+                                fill="black"></path>
+                        </svg></a>
+                <li class="has-sub relative group menu-geral roupas"><a href="/roupas/meia"
+                        class="text-[#1D1D1B] text-sm flex lg:inline items-center justify-between">MEIA<svg
+                            class="nav__arrow lg:hidden transition-all duration-300" width="10" height="7"
+                            viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M5 6.44783L0 1.44784L0.895833 0.552002L5 4.677L9.10417 0.572835L10 1.46867L5 6.44783Z"
+                                fill="black"></path>
+                        </svg></a>
+                <li class="has-sub relative group menu-geral roupas"><a href="/roupas/casacos"
+                        class="text-[#1D1D1B] text-sm flex lg:inline items-center justify-between">CASACOS<svg
+                            class="nav__arrow lg:hidden transition-all duration-300" width="10" height="7"
+                            viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M5 6.44783L0 1.44784L0.895833 0.552002L5 4.677L9.10417 0.572835L10 1.46867L5 6.44783Z"
+                                fill="black"></path>
+                        </svg></a>
+                <li class="has-sub relative group menu-geral roupas"><a href="/roupas/tenis"
+                        class="text-[#1D1D1B] text-sm flex lg:inline items-center justify-between">TÊNIS<svg
+                            class="nav__arrow lg:hidden transition-all duration-300" width="10" height="7"
+                            viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M5 6.44783L0 1.44784L0.895833 0.552002L5 4.677L9.10417 0.572835L10 1.46867L5 6.44783Z"
+                                fill="black"></path>
+                        </svg></a>
+                <li class="has-sub relative group menu-geral roupas"><a href="/roupas/bones"
+                        class="text-[#1D1D1B] text-sm flex lg:inline items-center justify-between">BONÉS<svg
+                            class="nav__arrow lg:hidden transition-all duration-300" width="10" height="7"
+                            viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M5 6.44783L0 1.44784L0.895833 0.552002L5 4.677L9.10417 0.572835L10 1.46867L5 6.44783Z"
+                                fill="black"></path>
+                        </svg></a>
+                </li>
+                </li>
+                </li>
+                </li>
+                </li>
+                </li>
+                </li>
+                </li>
+            </ul>
+
+    </div>
+    </nav>
+    </div>
+</header>
