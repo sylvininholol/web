@@ -1,100 +1,54 @@
 <!DOCTYPE html>
-<html lang="PT-BR">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Products List</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      margin: 0;
-      padding: 20px;
-    }
-
-    h1 {
-      text-align: center;
-      color: #333;
-      margin-bottom: 40px;
-    }
-
-    .products-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-    }
-
-    .product-card {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .product-card h2 {
-      font-size: 24px;
-      color: #333;
-      margin-bottom: 10px;
-    }
-
-    .product-card p {
-      color: #666;
-      font-size: 14px;
-    }
-
-    .product-card .price {
-      color: #5cb85c;
-      font-weight: bold;
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
-
-    .product-card .description {
-      margin-bottom: 15px;
-    }
-
-    .no-products {
-      text-align: center;
-      color: #999;
-      font-size: 18px;
-      margin-top: 50px;
-    }
-
-    .add-product-btn {
-      display: block;
-      width: 200px;
-      margin: 30px auto;
-      padding: 10px;
-      text-align: center;
-      background-color: #5cb85c;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 5px;
-    }
-
-    .add-product-btn:hover {
-      background-color: #4cae4c;
-    }
-  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h1>Products List</h1>
-  @if(auth.isAuthenticated) 
-    <p>Ta autenticado essa porra</p>
-  @else
-    <p>deu merda</p>
-  @end
-  @each(product in products)
-    <li>
-      <strong>{{ product.name }}</strong> - ${{ product.price }}
-      <p>{{ product.description }}</p>
-    </li>
-  @else
-    <p id="no-products">Nenhum produto encontrado.</p>
-  @end
+<body class="bg-gray-100 font-sans">
+  <div class="container mx-auto px-4 py-6">
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-10">Lista de Produtos</h1>
 
-    <a href="/products/create" class="add-product-btn">Add New Product</a>
+    @if(auth.isAuthenticated)
+      <p class="text-center text-green-600 font-medium">Você está autenticado!</p>
+    @else
+      <p class="text-center text-red-600 font-medium">Você não está autenticado.</p>
+    @end
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      @each(product in products)
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="relative pb-2/3">
+            @if(product.product_links.length > 0)
+              <img 
+                src="{{ product.product_links[0] }}" 
+                alt="{{ product.name }}" 
+                class="w-full h-48 object-cover"
+              />
+            @else
+              <div class="w-full h-48 flex items-center justify-center bg-gray-200 text-gray-500">
+                Sem imagem
+              </div>
+            @end
+          </div>
+          <div class="p-4">
+            <h2 class="text-xl font-semibold text-gray-800">{{ product.name }}</h2>
+            <p class="text-gray-600 text-sm mb-2">{{ product.description }}</p>
+            <p class="text-lg font-bold text-green-600 mb-4">R$ {{ product.price }}</p>
+            <p class="text-sm text-gray-500">Categoria: {{ product.category }}</p>
+          </div>
+        </div>
+      @else
+        <p class="text-center text-gray-500 text-lg col-span-full">Nenhum produto encontrado.</p>
+      @end
+    </div>
+
+    <div class="text-center mt-8">
+      <a href="/products/create" class="px-6 py-3 bg-green-600 text-white rounded-md shadow-md hover:bg-green-700">
+        Adicionar Novo Produto
+      </a>
+    </div>
+  </div>
 </body>
 </html>
