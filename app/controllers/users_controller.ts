@@ -88,7 +88,67 @@ export default class UsersController {
     return response.redirect('/login')
   } 
 
+  public async userProfile({request}: HttpContext)
+  {
+    const data = request.only(['full_name', 'email', 'password'])
+
+    
+  }
+
   public async showRegister({view}: HttpContext) {
     return view.render('pages/register/index')
   }
+
+  public async showProfile({ auth, view }: HttpContext) {
+    try {
+      const user = auth.user
+
+      if (!user) {
+        return view.render('errors/server_error') // Renderiza uma página de erro, se necessário
+      }
+
+      return view.render('pages/profile/account', { user })
+    } catch (error) {
+      console.error(error)
+      return view.render('errors/server_error') // Renderiza uma página de erro genérico
+    }
+  }
+
+  public async updateProfile({ auth, request, response }: HttpContext) {
+    try {
+      const user = auth.user;
+  
+      // Verificando se o usuário está autenticado
+      if (!user) {
+        return response.unauthorized('Você precisa estar autenticado');
+      }
+  
+      // Obtendo os dados do formulário
+      const { new_email, confirm_email } = request.only(['new_email', 'confirm_email']);
+  
+      // Verificando se os e-mails coincidem
+      if (new_email !== confirm_email) {
+        return response.badRequest('Os e-mails não coincidem');
+      }
+  
+      // Validando o novo e-mail
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailPattern.test(new_email)) {
+        return response.badRequest('E-mail inválido');
+      }
+  
+      // Atribuindo o novo e-mail ao usuário
+      user.email = new_email;
+  
+      // Salvando a atualização do usuário no banco de dados
+      await user.save();
+  
+      // Redirecionando o usuário para o perfil atualizado
+      return response.redirect().toRoute('user.show');
+    } catch (error) {
+      console.error(error);
+      return response.internalServerError('Erro ao atualizar perfil');
+    }
+  }
+  
 }
