@@ -175,7 +175,7 @@ export default class UsersController {
       }
   
       // Atualizando a senha do usuário
-      user.password = await Hash.make(new_password);
+      user.password = new_password;
   
       // Salvando a atualização da senha no banco de dados
       await user.save();
