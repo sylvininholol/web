@@ -31,7 +31,7 @@ export default class UsersController {
     if (user && (await Hash.verify(user.password, password))) {
       await auth.use('web').login(user);
       auth.authenticate()
-      return response.status(200).send({ message: 'Deu certo' });
+      return response.redirect().toRoute("/");
     }
     return response.status(401).send({ message: 'Credenciais inválidas' });
   }
@@ -187,5 +187,5 @@ export default class UsersController {
       return response.internalServerError('Erro ao atualizar senha');
     }
   }  
-  
+
 }
