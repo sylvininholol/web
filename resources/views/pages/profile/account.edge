@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil do Usuário</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white-100 font-sans">
+
+  <div class="max-w-7xl mx-auto p-6">
+    <!-- Container Principal -->
+    <div class="flex flex-col lg:flex-row gap-6">
+      
+      <!-- Sidebar -->
+      <aside class="bg-white w-full lg:w-1/4 p-4">
+        <h2 class="bg-gray-300 w-[300px] p-4 border border-gray-400 text-lg font-bold font-montserrat">Minha Conta</h2>
+        <ul class="space-y-1">
+          <li>
+            <a href="#" onclick="showEmailForm()" class="flex items-center text-gray-700 hover:text-blue-500 p-4 bg-white-200 border border-gray-400">
+                <i class="fas fa-envelope mr-2"></i> Alterar E-mail
+              </a>
+              
+              <a href="#" onclick="showPasswordForm()" class="flex items-center text-gray-700 hover:text-blue-500 p-4 bg-white-200 border border-gray-400">
+                <i class="fas fa-lock mr-2"></i> Alterar Senha
+              </a>
+
+              <form action="{{ route('logout') }}" method="POST">
+                <button 
+                  href="#" class="flex items-center text-gray-700 hover:text-blue-500 p-4 bg-white-200 border border-gray-400" type="submit" class="btn-logout">Logout
+                </button>
+              </form>
+          </li>
+          <!-- Outros itens do menu -->
+        </ul>
+      </aside>
+
+      
+      <!-- Conteúdo Principal - Alteração de E-mail -->
+      <main id="emailForm" class="bg-white w-full lg:w-3/4 p-6 mb-6">
+        <h1 class="text-4xl font-bold text-gray-800 mb-6">Alteração de E-mail</h1>
+        <form action="/MinhaConta/updateEmail" method="POST" class="space-y-10">
+          <div>
+            <label for="current_email" class="block text-sm font-medium text-gray-600">E-mail Atual</label>
+            <input 
+              type="email" 
+              id="current_email" 
+              name="current_email" 
+              value="{{user.email}}" 
+              disabled 
+              class="mt-1 block w-[300px] h-[60px] border border-gray-400 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm bg-white text-gray-700 p-3"
+            />
+          </div>
+          <div>
+            <label for="new_email" class="block text-sm font-medium text-gray-600">Novo E-mail</label>
+            <input 
+              type="email" 
+              id="new_email" 
+              name="new_email" 
+              placeholder="Digite o novo e-mail" 
+              required 
+              class="mt-1 block w-[300px] h-[60px] border border-gray-400 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm bg-white text-gray-700 p-3"
+            />
+          </div>
+          <div>
+            <label for="confirm_email" class="block text-sm font-medium text-gray-600">Confirmação do Novo E-mail</label>
+            <input 
+              type="email" 
+              id="confirm_email" 
+              name="confirm_email" 
+              placeholder="Confirme o novo e-mail" 
+              required 
+              class="mt-1 block w-[300px] h-[60px] border border-gray-400 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm bg-white text-gray-700 p-3"
+            />
+          </div>
+          <button 
+            type="submit" 
+            class="bg-black hover:bg-gray-800 text-white text-xl font-medium py-6 px-7 shadow focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+            >
+                Gravar novo E-mail
+            </button>
+        </form>
+      </main>
+
+      <!-- Conteúdo Principal - Alteração de Senha -->
+    <main id="passwordForm" class="bg-white w-full lg:w-3/4 p-6 mb-6 hidden">
+      <h1 class="text-4xl font-bold text-gray-800 mb-6">Alteração de Senha</h1>
+      <form action="/MinhaConta/updatePassword" method="POST" class="space-y-10">
+        <div>
+          <label for="current_password" class="block text-sm font-medium text-gray-600">Senha Atual</label>
+          <input 
+            type="password" 
+            id="current_password" 
+            name="current_password" 
+            placeholder="Digite sua senha atual" 
+            required 
+            class="mt-1 block w-[300px] h-[60px] rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm bg-white text-gray-700 p-3"
+          />
+        </div>
+        <div>
+          <label for="new_password" class="block text-sm font-medium text-gray-600">Nova Senha</label>
+          <input 
+            type="password" 
+            id="new_password" 
+            name="new_password" 
+            placeholder="Digite a nova senha" 
+            required 
+            class="mt-1 block w-[300px] h-[60px] rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm bg-white text-gray-700 p-3"
+          />
+        </div>
+        <div>
+          <label for="confirm_password" class="block text-sm font-medium text-gray-600">Confirmação da Nova Senha</label>
+          <input 
+            type="password" 
+            id="confirm_password" 
+            name="confirm_password" 
+            placeholder="Confirme a nova senha" 
+            required 
+            class="mt-1 block w-[300px] h-[60px] rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm bg-white text-gray-700 p-3"
+          />
+        </div>
+        <button 
+          type="submit" 
+          class="w-full bg-black hover:bg-gray-800 text-white font-medium py-7 px-4 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+        >
+          Gravar nova Senha
+        </button>
+      </form>
+    </main>
+
+
+    </div>
+  </div>
+
+  <script>
+    function showEmailForm() {
+      // Exibe o formulário de e-mail e esconde o de senha
+      document.getElementById("emailForm").classList.remove("hidden");
+      document.getElementById("passwordForm").classList.add("hidden");
+    }
+
+    function showPasswordForm() {
+      // Exibe o formulário de senha e esconde o de e-mail
+      document.getElementById("passwordForm").classList.remove("hidden");
+      document.getElementById("emailForm").classList.add("hidden");
+    }
+  </script>
+
+</body>
+</html>
