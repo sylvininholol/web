@@ -23,8 +23,16 @@ router.post('/register', [UsersController, 'register']).as('register')
 //Rota de minha conta
 router.get('/MinhaConta', [UsersController, 'showProfile'])
   .use(middleware.auth()).as('user.show');
-router.post('/MinhaConta', [UsersController, 'updateProfile'])
+router.post('/MinhaConta/updateEmail', [UsersController, 'updateEmail'])
   .use(middleware.auth())
+router.post('/MinhaConta/updatePassword', [UsersController, 'updatePassword'])
+  .use(middleware.auth())
+
+//Rota de Logout
+router.post('/logout', async ({ auth, response }) => {
+  await auth.use('web').logout()
+  return response.redirect('/')
+}).as('logout').use(middleware.auth());
 
 
 
