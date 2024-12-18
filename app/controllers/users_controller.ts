@@ -5,23 +5,7 @@ import { registerValidator } from '#validators/register'
 
 let sequence = 2
 
-const users = [
-  {
-    id: 1,
-    name: 'John Doe',
-    email: 'doe@gmail.com',
-  },
-  {
-    id: 2,
-    name: 'John Doe',
-    email: 'doe@gmail.com',
-  },
-]
-
 export default class UsersController {
-  index() {
-    return users
-  }
 
   async login({ request, response, auth }: HttpContext) {
     const { email, password } = request.only(['email', 'password'])
@@ -40,41 +24,8 @@ export default class UsersController {
     return view.render('pages/login/index')
   }
 
-  create({ request, response }: HttpContext) {
-    const user = request.only(['name', 'email'])
-
-    sequence += 1
-
-    users.push({
-      id: sequence,
-      ...user,
-    })
-
-    return response.redirect().toRoute('users.show', { id: sequence })
-  }
-
-  show({ params, response }: HttpContext) {
-    const id = params.id
-
-    if (id === null) {
-      response.status(400)
-
-      return { message: 'id eh obrigatorio' }
-    }
-
-    for (const user of users) {
-      if (user.id === id) {
-        return user
-      }
-    }
-
-    response.status(404)
-
-    return { message: 'not found' }
-  }
-
   public async register({ request, response, auth }: HttpContext) {
-    const data = request.only(['full_name', 'email', 'password'])
+    const data = request.only(['fullName', 'email', 'password'])
 
     const validadedData = await registerValidator.validate(data)
 
@@ -83,10 +34,6 @@ export default class UsersController {
     await auth.use('web').login(user)
     auth.authenticate()
     return response.redirect().toRoute('/')
-  }
-
-  public async userProfile({ request }: HttpContext) {
-    const data = request.only(['full_name', 'email', 'password'])
   }
 
   public async showRegister({ view }: HttpContext) {

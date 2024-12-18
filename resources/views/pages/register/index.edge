@@ -84,7 +84,7 @@
         <form action="/registrar" method="POST">
             <div class="form-group">
                 <label for="name">Nome:</label>
-                <input type="text" id="full_name" name="fullName" required>
+                <input type="text" id="fullName" name="fullName" required>
                 
                 @inputError('fullName')
                     <p class="error">{{ $messages.join(', ') }}</p>

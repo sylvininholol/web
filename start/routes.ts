@@ -13,20 +13,34 @@ router.get('/login', [UsersController, 'goToLoginPage']).as('loginPage')
 
 router
   .group(() => {
-    //Rota principal
-    router.get('/', [ProductsController, 'viewHome']).as('home')
-
-    //Rotas de roupas
-    router.get('/categorias/:category/roupas', [ClothesController, 'viewCategory']).as('roupas')
     router
-      .get('/categorias/:category/roupas/:id', [ClothesController, 'viewProducts'])
-      .as('viewProducts')
+      .group(() => {
+        //Rota principal
+        router.get('/', [ProductsController, 'viewHome']).as('home')
 
+        //Rotas de roupas
+        router.get('/categorias/:category/roupas', [ClothesController, 'viewCategory']).as('roupas')
+        router
+          .get('/categorias/:category/roupas/:id', [ClothesController, 'viewProducts'])
+          .as('viewProducts')
+
+        router
+          .get('/finalizar-compra', async ({ view }) => view.render('pages/finalizar-compra/index'))
+          .as('checkout')
+      })
+      .middleware([middleware.cart()])
+
+    // Rotas de Views para Produtos
     router
-      .get('/finalizar-compra', async ({ view }) => view.render('pages/finalizar-compra/index'))
-      .as('checkout')
+      .group(() => {
+        router.get('/create', [ProductsController, 'showCreate']).as('products.create.show')
+        router.get('/', [ProductsController, 'viewProducts']).as('products.viewProducts')
+      })
+      .prefix('products')
+      .as('products')
+      .use([middleware.silentAuth(), middleware.admin()])
   })
-  .middleware(middleware.cart())
+  .use(middleware.categories())
 
 // Rotas de registro de usuário
 router.get('/registrar', [UsersController, 'showRegister']).as('registrar.show')
@@ -48,21 +62,6 @@ router
   .as('logout')
   .use(middleware.auth())
 
-// Rotas de Views para Produtos
-router
-  .group(() => {
-    router
-      .get('/create', [ProductsController, 'showCreate'])
-      .as('products.create.show')
-      .use(middleware.silentAuth())
-    router
-      .get('/', [ProductsController, 'viewProducts'])
-      .as('products.viewProducts')
-      .use(middleware.silentAuth())
-  })
-  .prefix('products')
-  .as('products')
-
 router
   .get('/joao', async ({ auth }) => {
     console.log(auth.user)
@@ -76,19 +75,6 @@ router
   .group(() => {
     // Rotas de autenticação na API
     router.post('/login', [UsersController, 'login']).as('api.login')
-
-    // Rotas de API para Usuários
-    router
-      .group(() => {
-        router.get('/', [UsersController, 'index']).as('api.users.index')
-        router
-          .get('/:id', [UsersController, 'show'])
-          .where('id', router.matchers.number())
-          .as('api.users.show')
-        router.post('/', [UsersController, 'create']).as('api.users.create')
-      })
-      .prefix('users')
-      .as('api.users')
 
     router
       .group(() => {

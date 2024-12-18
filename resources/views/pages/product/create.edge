@@ -34,21 +34,21 @@
         <textarea id="description" name="description" rows="4" required
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
       </div>
+      
+      <div class="mb-4">
+        <label for="stock" class="block text-gray-700 text-sm font-bold mb-2">Estoque inicial:</label>
+        <input type="number" id="stock" name="stock" required value="0"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      </div>
 
       <!-- Categoria -->
       <div class="mb-4">
-        <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Category:</label>
-        <select id="category" name="category" required
+        <label for="categoryId" class="block text-gray-700 text-sm font-bold mb-2">Category:</label>
+        <select id="categoryId" name="categoryId" required
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-          <option value="CAMISETA">Camiseta</option>
-          <option value="REGATA">Regata</option>
-          <option value="CALÇA">Calça</option>
-          <option value="UNDERWEAR">Underwear</option>
-          <option value="SHORT">Short</option>
-          <option value="MEIA">Meia</option>
-          <option value="CASACO">Casaco</option>
-          <option value="TÊNIS">Tênis</option>
-          <option value="BONÉ">Boné</option>
+          @each(category in categories)
+            <option value="{{ category.id }}">{{ category.name }}</option>
+          @end
         </select>
       </div>
 
@@ -56,7 +56,7 @@
       <div id="links-container" class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2">Photos (URLs):</label>
         <div class="flex space-x-2 mb-2">
-          <input type="url" name="product_links[]" placeholder="Enter URL" required
+          <input type="url" name="images[]" placeholder="Enter URL" required
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
           <button type="button" onclick="addLinkField()" class="bg-blue-500 text-white px-2 py-1 rounded">+</button>
         </div>
@@ -82,7 +82,7 @@
       const div = document.createElement('div');
       div.className = 'flex space-x-2 mb-2';
       div.innerHTML = `
-        <input type="url" name="product_links[]" placeholder="Enter URL"
+        <input type="url" name="images[]" placeholder="Enter URL"
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         <button type="button" onclick="removeLinkField(this)" 
           class="bg-red-500 text-white px-2 py-1 rounded">-</button>

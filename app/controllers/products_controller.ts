@@ -32,9 +32,12 @@ export default class ProductsController {
   }
 
   async store({ request, response }: HttpContext) {
-    const payload = request.only(['name', 'price', 'description', 'category', 'product_links'])
+    const payload = request.only(['name', 'price', 'stock', 'description', 'categoryId'])
+    const { images } = request.only(['images'])
+    
+    const product = await Product.create(payload)
 
-    await Product.create(payload)
+    await product.related('images').createMany(images.map((image: string) => ({ imageUrl: image })))
 
     return response.redirect().toRoute('/products') // Certifique-se que está redirecionando para a rota correta
   }

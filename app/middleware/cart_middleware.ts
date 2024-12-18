@@ -38,7 +38,9 @@ export default class CartMiddleware {
           .toFixed(2),
       }
 
-      ctx.view.share({ cart })
+      ctx.view.share({
+        cart,
+      })
     }
 
     return await next()

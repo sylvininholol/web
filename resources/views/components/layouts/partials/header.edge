@@ -115,53 +115,17 @@
             fill="black"
           />
 
-        </svg></button>
+        </svg>
+      </button>
       <ul class="mt-5 lg:mt-0 flex w-full justify-center gap-4 lg:gap-14 flex-col lg:flex-row">
       </li>
-      <li class="has-sub relative group menu-geral roupas">
-        <a
-          href="/categorias/camisetas/roupas"
-          class="text-[#1D1D1B] text-sm flex lg:inline items-center justify-between"
-        >CAMISETAS
-          <svg
-            class="nav__arrow lg:hidden transition-all duration-300"
-            width="10"
-            height="7"
-            viewBox="0 0 10 7"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M5 6.44783L0 1.44784L0.895833 0.552002L5 4.677L9.10417 0.572835L10 1.46867L5 6.44783Z"
-              fill="black"
-            />
-
-          </svg></a>
-      </li>
-      <li class="has-sub relative group menu-geral roupas">
-        <a
-          href="/categorias/regatas/roupas"
-          class="text-[#1D1D1B] text-sm flex lg:inline items-center justify-between"
-        >REGATAS
-          <svg
-            class="nav__arrow lg:hidden transition-all duration-300"
-            width="10"
-            height="7"
-            viewBox="0 0 10 7"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M5 6.44783L0 1.44784L0.895833 0.552002L5 4.677L9.10417 0.572835L10 1.46867L5 6.44783Z"
-              fill="black"
-            />
-
-          </svg></a>
+      @each(category in categories)
         <li class="has-sub relative group menu-geral roupas">
           <a
-            href="/categorias/calcas/roupas"
+            href="/categorias/{{ category.id }}/roupas"
             class="text-[#1D1D1B] text-sm flex lg:inline items-center justify-between"
-          >CALÇAS
+          >
+            {{ category.name.toUpperCase() }}
             <svg
               class="nav__arrow lg:hidden transition-all duration-300"
               width="10"
@@ -174,130 +138,10 @@
                 d="M5 6.44783L0 1.44784L0.895833 0.552002L5 4.677L9.10417 0.572835L10 1.46867L5 6.44783Z"
                 fill="black"
               />
-
-            </svg></a>
-          <li class="has-sub relative group menu-geral roupas">
-            <a
-              href="/categorias/underwear/roupas"
-              class="text-[#1D1D1B] text-sm flex lg:inline items-center justify-between"
-            >UNDERWEAR
-              <svg
-                class="nav__arrow lg:hidden transition-all duration-300"
-                width="10"
-                height="7"
-                viewBox="0 0 10 7"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5 6.44783L0 1.44784L0.895833 0.552002L5 4.677L9.10417 0.572835L10 1.46867L5 6.44783Z"
-                  fill="black"
-                />
-
-              </svg></a>
-            <li class="has-sub relative group menu-geral roupas">
-              <a
-                href="/categorias/shorts/roupas"
-                class="text-[#1D1D1B] text-sm flex lg:inline items-center justify-between"
-              >SHORTS
-                <svg
-                  class="nav__arrow lg:hidden transition-all duration-300"
-                  width="10"
-                  height="7"
-                  viewBox="0 0 10 7"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M5 6.44783L0 1.44784L0.895833 0.552002L5 4.677L9.10417 0.572835L10 1.46867L5 6.44783Z"
-                    fill="black"
-                  />
-
-                </svg></a>
-              <li class="has-sub relative group menu-geral roupas">
-                <a
-                  href="/categorias/meia/roupas"
-                  class="text-[#1D1D1B] text-sm flex lg:inline items-center justify-between"
-                >MEIA
-                  <svg
-                    class="nav__arrow lg:hidden transition-all duration-300"
-                    width="10"
-                    height="7"
-                    viewBox="0 0 10 7"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5 6.44783L0 1.44784L0.895833 0.552002L5 4.677L9.10417 0.572835L10 1.46867L5 6.44783Z"
-                      fill="black"
-                    />
-
-                  </svg></a>
-                <li class="has-sub relative group menu-geral roupas">
-                  <a
-                    href="/categorias/casacos/roupas"
-                    class="text-[#1D1D1B] text-sm flex lg:inline items-center justify-between"
-                  >CASACOS
-                    <svg
-                      class="nav__arrow lg:hidden transition-all duration-300"
-                      width="10"
-                      height="7"
-                      viewBox="0 0 10 7"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M5 6.44783L0 1.44784L0.895833 0.552002L5 4.677L9.10417 0.572835L10 1.46867L5 6.44783Z"
-                        fill="black"
-                      />
-
-                    </svg></a>
-                  <li class="has-sub relative group menu-geral roupas">
-                    <a
-                      href="/categorias/tenis/roupas"
-                      class="text-[#1D1D1B] text-sm flex lg:inline items-center justify-between"
-                    >TÊNIS
-                      <svg
-                        class="nav__arrow lg:hidden transition-all duration-300"
-                        width="10"
-                        height="7"
-                        viewBox="0 0 10 7"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M5 6.44783L0 1.44784L0.895833 0.552002L5 4.677L9.10417 0.572835L10 1.46867L5 6.44783Z"
-                          fill="black"
-                        />
-
-                      </svg></a>
-                    <li class="has-sub relative group menu-geral roupas">
-                      <a
-                        href="/categorias/bones/roupas"
-                        class="text-[#1D1D1B] text-sm flex lg:inline items-center justify-between"
-                      >BONÉS
-                        <svg
-                          class="nav__arrow lg:hidden transition-all duration-300"
-                          width="10"
-                          height="7"
-                          viewBox="0 0 10 7"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M5 6.44783L0 1.44784L0.895833 0.552002L5 4.677L9.10417 0.572835L10 1.46867L5 6.44783Z"
-                            fill="black"
-                          />
-
-                        </svg></a>
-                    </li>
-                  </li>
-                </li>
-              </li>
-            </li>
-          </li>
+            </svg>
+          </a>
         </li>
-      </li>
+      @end
     </ul>
 
   </div>
