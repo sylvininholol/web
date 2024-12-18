@@ -1,0 +1,84 @@
+@vite(['resources/js/categorias/roupas/carrinho.js'])
+@layouts.appWithHeader({ title: `${category ? product?.name ?? 'Roupa não encontrada' : 'Categoria não encontrada'}` })
+
+  <main>
+    @if(category)
+      <div class="container mx-auto mt-10">
+        <div class="flex gap-10 lg:gap-20 flex-col lg:flex-row">
+          @if(product)
+            <div class="w-full lg:w-[calc(100%-24rem)] relative flex">
+              <div class="flex flex-col gap-4 mr-6">
+                @each(image in product.images)
+                  <img
+                    src="{{ image.imageUrl }}"
+                    alt="Foto alternativa de {{ product.name }}"
+                    class="w-16 h-16 object-cover rounded-md border border-gray-300"
+                    style="cursor: pointer;"
+                    onclick="document.querySelector('.photo-main').src=this.src"
+                  />
+                @endeach
+              </div>
+
+              <div class="flex-1">
+                <img
+                  src="{{ product.images[0].imageUrl }}"
+                  alt="{{ product.name }}"
+                  class="photo-main w-full max-h-lg object-cover rounded-md shadow-lg"
+                />
+              </div>
+            </div>
+
+            <div class="w-full lg:max-w-xll">
+              <div>
+                <div class="text-sm text-gray-600">
+                  <a href="/" class="text-black">Home </a>|
+                  <a href="/categorias" class="text-black">Categoria </a>-
+                  <a href="/categorias/{{ category.id }}/roupas" class="text-black">
+                    {{ category.name }}
+                  </a>
+                </div>
+
+                <h1 class="text-black font-medium text-2xl mt-4">
+                  {{ product.name }}
+                </h1>
+
+                <div class="flex mt-3 flex-col">
+                  <span class="text-xl font-semibold">R$ {{ product.price.toFixed(2) }}</span>
+                </div>
+
+                <div class="mt-6">
+                  <button
+                    type="submit"
+                    class="bg-black text-white py-2 px-4 rounded-md"
+                    onclick="addToCart(event, {{ product.id }})"
+                  >
+                    Adicionar ao carrinho
+                  </button>
+                </div>
+
+                <div class="mt-8 overflow-auto">
+                  <h3 class="text-lg font-medium">
+                    Descrição
+                  </h3>
+                  <p class="mt-2 text-gray-700">
+                    {{ product.description }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          @else
+          @end
+        </div>
+      </div>
+    @else
+      <div class="container mx-auto mt-6">
+        <p class="text-center text-gray-500 text-lg">
+          Categoria não encontrada.
+        </p>
+        <div class="flex justify-center mt-6">
+          <a href="/" class="text-black ml-4">Voltar para home</a>
+        </div>
+      </div>
+    @end
+  </main>
+@end

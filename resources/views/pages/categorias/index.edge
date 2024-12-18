@@ -1,0 +1,111 @@
+@layouts.appWithHeader( {title: `${category?.name ?? 'Categoria não existente'}` } )
+
+  <main>
+
+    <div class="container mx-auto mt-6">
+      <div class="flex justify-center lg:justify-between items-center">
+        @if(category)
+          <div>
+            <a href="/" class="text-sm text-black">Home</a> | <a href="/roupas" class="text-sm text-black">Roupas</a>- <a href="/categorias/{{ category.id }}/roupas" class="text-sm text-black">{{ category.name }}</a>
+          </div>
+        @else
+          <div>
+            <a href="/" class="text-sm text-black">Home</a> | <a href="/roupas" class="text-sm text-black">Roupas</a>
+          </div>
+        @end
+        @if(category)
+          <div class="hidden lg:block">
+            <div>
+              <select
+                name="sort_options"
+                id="sort_options"
+                onchange="sortResult(this.value)"
+                class="bg-white text-black text-sm border-none focus:outline-none focus:shadow-none"
+              >
+                <option value="" selected="" disabled="" hidden="">
+                  Ordenar por
+                </option>
+                <option value="NAME:ASC">
+                  Nome A-Z
+                </option>
+                <option value="SALES:DESC">
+                  Vendas
+                </option>
+                <option value="PRICE:ASC">
+                  Menor Preço
+                </option>
+                <option value="PRICE:DESC">
+                  Maior Preço
+                </option>
+                <option value="RELEASE_DATE:DESC">
+                  Data Lançamento
+                </option>
+              </select>
+            </div>
+          </div>
+        @end
+      </div>
+    </div>
+
+    @if(category)
+      <div class="mt-6 lg:mt-14 px-4 lg:px-8">
+        <div class="container mx-auto">
+          <h2 class="uppercase text-lg text-center block font-semibold">
+            Roupas / {{ category.name }}
+          </h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 lg:mt-14">
+          @each(product in category.products)
+            <a
+              href="/categorias/{{ category.id }}/roupas/{{ product.id }}"
+              class="block bg-white rounded-lg shadow-md overflow-hidden group mx-2"
+            >
+              <div class="bg-white rounded-lg shadow-md overflow-hidden group">
+                <div class="relative pb-2/3">
+                  @if(product.images.length > 0)
+                    <img
+                      src="{{ product.images[0].imageUrl }}"
+                      alt="{{ product.name }}"
+                      class="w-full group-hover:hidden"
+                    />
+                    <img
+                      src="{{ product.images[1].imageUrl }}"
+                      alt="{{ product.name }} hover"
+                      class="w-full object-cover hidden group-hover:block"
+                    />
+                  @else
+                    <div class="w-full h-48 flex items-center justify-center bg-gray-200 text-gray-500">
+                      Sem imagem
+                    </div>
+                  @end
+                </div>
+                <div class="p-4">
+                  <h2 class="text-xl font-semibold text-gray-800">
+                    {{ product.name }}
+                  </h2>
+                  <p class="text-lg font-bold text-green-600 mb-4">
+                    R$ {{ product.price }}
+                  </p>
+                </div>
+              </div>
+            @else
+              <p class="text-center text-gray-500 text-lg col-span-full">
+                Nenhum produto encontrado.
+              </p>
+            </a>
+          @end
+        </div>
+      </div>
+    @else
+      <div class="container mx-auto mt-6">
+        <p class="text-center text-gray-500 text-lg">
+          Categoria não encontrada.
+        </p>
+        <div class="flex justify-center mt-6">
+          <a href="/" class="text-black ml-4">Voltar para home</a>
+        </div>
+      </div>
+    @end
+  </main>
+
+@end

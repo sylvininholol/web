@@ -1,6 +1,6 @@
 import Hash from '@adonisjs/core/services/hash'
 import type { HttpContext } from '@adonisjs/core/http'
-import User from '#models/user'
+import User from '#models/User'
 import { registerValidator } from '#validators/register'
 
 let sequence = 2
@@ -24,16 +24,16 @@ export default class UsersController {
   }
 
   async login({ request, response, auth }: HttpContext) {
-    const { email, password } = request.only(['email', 'password']);
+    const { email, password } = request.only(['email', 'password'])
 
-    const user = await User.findBy('email', email);
+    const user = await User.findBy('email', email)
 
     if (user && (await Hash.verify(user.password, password))) {
-      await auth.use('web').login(user);
+      await auth.use('web').login(user)
       auth.authenticate()
-      return response.redirect().toRoute("/");
+      return response.redirect().toRoute('/')
     }
-    return response.status(401).send({ message: 'Credenciais inválidas' });
+    return response.status(401).send({ message: 'Credenciais inválidas' })
   }
 
   goToLoginPage({ view }: HttpContext) {
@@ -73,29 +73,23 @@ export default class UsersController {
     return { message: 'not found' }
   }
 
-  public async register({ request, response}: HttpContext) {
-    
-    //grab request data
+  public async register({ request, response, auth }: HttpContext) {
     const data = request.only(['full_name', 'email', 'password'])
 
-    //create user
     const validadedData = await registerValidator.validate(data)
 
     const user = await User.create(validadedData)
 
-    console.log({user: user.serialize()})
-
-    return response.redirect('/login')
-  } 
-
-  public async userProfile({request}: HttpContext)
-  {
-    const data = request.only(['full_name', 'email', 'password'])
-
-    
+    await auth.use('web').login(user)
+    auth.authenticate()
+    return response.redirect().toRoute('/')
   }
 
-  public async showRegister({view}: HttpContext) {
+  public async userProfile({ request }: HttpContext) {
+    const data = request.only(['full_name', 'email', 'password'])
+  }
+
+  public async showRegister({ view }: HttpContext) {
     return view.render('pages/register/index')
   }
 
@@ -116,76 +110,79 @@ export default class UsersController {
 
   public async updateEmail({ auth, request, response }: HttpContext) {
     try {
-      const user = auth.user;
-  
+      const user = auth.user
+
       // Verificando se o usuário está autenticado
       if (!user) {
-        return response.unauthorized('Você precisa estar autenticado');
+        return response.unauthorized('Você precisa estar autenticado')
       }
-  
+
       // Obtendo os dados do formulário para email
-      const { new_email, confirm_email } = request.only(['new_email', 'confirm_email']);
-  
+      const { new_email, confirm_email } = request.only(['new_email', 'confirm_email'])
+
       // Verificando se os e-mails coincidem
       if (new_email !== confirm_email) {
-        return response.badRequest('Os e-mails não coincidem');
+        return response.badRequest('Os e-mails não coincidem')
       }
 
       // Validando o novo e-mail
-      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
       if (!emailPattern.test(new_email)) {
-        return response.badRequest('E-mail inválido');
+        return response.badRequest('E-mail inválido')
       }
-  
+
       // Atribuindo o novo e-mail ao usuário
-      user.email = new_email;
-  
+      user.email = new_email
+
       // Salvando a atualização do usuário no banco de dados
-      await user.save();
-  
+      await user.save()
+
       // Redirecionando o usuário para o perfil atualizado
-      return response.redirect().toRoute('user.show');
+      return response.redirect().toRoute('user.show')
     } catch (error) {
-      console.error(error);
-      return response.internalServerError('Erro ao atualizar perfil');
+      console.error(error)
+      return response.internalServerError('Erro ao atualizar perfil')
     }
   }
 
   public async updatePassword({ auth, request, response }: HttpContext) {
     try {
-      const user = auth.user;
-  
+      const user = auth.user
+
       // Verificando se o usuário está autenticado
       if (!user) {
-        return response.unauthorized('Você precisa estar autenticado');
+        return response.unauthorized('Você precisa estar autenticado')
       }
-  
+
       // Obtendo dados do formulário para a senha
-      const { current_password, new_password, confirm_password } = request.only(['current_password', 'new_password', 'confirm_password']);
-      
+      const { current_password, new_password, confirm_password } = request.only([
+        'current_password',
+        'new_password',
+        'confirm_password',
+      ])
+
       // Verificando se as senhas coincidem
       if (new_password !== confirm_password) {
-        return response.badRequest('As senhas não coincidem');
+        return response.badRequest('As senhas não coincidem')
       }
-  
-      // Verificando se a senha atual está correta
-      const isCurrentPasswordValid = await Hash.verify(user.password, current_password);
-      if (!isCurrentPasswordValid) {
-        return response.badRequest('A senha atual está incorreta');
-      }
-  
-      // Atualizando a senha do usuário
-      user.password = new_password;
-  
-      // Salvando a atualização da senha no banco de dados
-      await user.save();
-  
-      // Redirecionando o usuário para o perfil atualizado
-      return response.redirect().toRoute('user.show');
-    } catch (error) {
-      console.error(error);
-      return response.internalServerError('Erro ao atualizar senha');
-    }
-  }  
 
+      // Verificando se a senha atual está correta
+      const isCurrentPasswordValid = await Hash.verify(user.password, current_password)
+      if (!isCurrentPasswordValid) {
+        return response.badRequest('A senha atual está incorreta')
+      }
+
+      // Atualizando a senha do usuário
+      user.password = new_password
+
+      // Salvando a atualização da senha no banco de dados
+      await user.save()
+
+      // Redirecionando o usuário para o perfil atualizado
+      return response.redirect().toRoute('user.show')
+    } catch (error) {
+      console.error(error)
+      return response.internalServerError('Erro ao atualizar senha')
+    }
+  }
 }

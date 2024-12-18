@@ -1,4 +1,4 @@
-import { DatabaseConfig } from "@adonisjs/lucid/types/database"
+import { DatabaseConfig } from '@adonisjs/lucid/types/database'
 
 const databaseConfig: DatabaseConfig = {
   connection: 'sqlite',
@@ -6,7 +6,7 @@ const databaseConfig: DatabaseConfig = {
     sqlite: {
       client: 'better-sqlite3',
       connection: {
-        filename: './database/database.sqlite3',
+        filename: './database.sqlite3',
       },
       useNullAsDefault: true,
     },

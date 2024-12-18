@@ -16,6 +16,8 @@ public/assets
 npm-debug.log
 yarn-error.log
 
+database.sqlite3
+
 # Editors specific
 .fleet
 .idea
