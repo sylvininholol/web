@@ -6,7 +6,7 @@ import { ImageFactory } from '#database/factories/image_factory'
 export const ProductFactory = factory
   .define(Product, async ({ faker }) => ({
     name: faker.commerce.productName(),
-    price: faker.number.float({ min: 0, max: 1000 }),
+    price: faker.number.float({ min: 0, max: 1000, fractionDigits: 2 }),
     description: faker.commerce.productDescription(),
     stock: faker.number.int({ min: 0, max: 100 }),
   }))

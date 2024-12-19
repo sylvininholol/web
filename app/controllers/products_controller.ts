@@ -25,6 +25,31 @@ export default class ProductsController {
     }
   }
 
+  async deleteProduct({ params, response }: HttpContext) {
+    const product = await Product.find(params.id)
+
+    if (product) {
+      await product.delete()
+    }
+
+    return response.redirect().toRoute('/products')
+  }
+
+  async updateStock({ params, request, response }: HttpContext) {
+    const product = await Product.find(params.id)
+    const payload = request.only(['stock'])
+
+    if (!product || !payload.stock) {
+      return response.redirect().toRoute('/products')
+    }
+
+    product.merge(payload)
+
+    await product.save()
+
+    return response.redirect().toRoute('/products')
+  }
+
   async show({ params }: HttpContext) {
     const product = await Product.findOrFail(params.id)
 
@@ -34,7 +59,7 @@ export default class ProductsController {
   async store({ request, response }: HttpContext) {
     const payload = request.only(['name', 'price', 'stock', 'description', 'categoryId'])
     const { images } = request.only(['images'])
-    
+
     const product = await Product.create(payload)
 
     await product.related('images').createMany(images.map((image: string) => ({ imageUrl: image })))

@@ -64,6 +64,15 @@
                     {{ product.description }}
                   </p>
                 </div>
+
+                <div class="mt-8 overflow-auto">
+                  <h3 class="text-lg font-medium">
+                    Estoque
+                  </h3>
+                  <p class="mt-2 text-gray-700">
+                    Estoque atual: {{ product.stock }} unidades
+                  </p>
+                </div>
               </div>
             </div>
           @else

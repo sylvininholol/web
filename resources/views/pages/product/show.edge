@@ -45,6 +45,34 @@
                 <p class="text-sm text-gray-500">
                   Categoria: {{ product.category.name }}
                 </p>
+                <p class="text-sm text-gray-500">
+                  Estoque atual: {{ product.stock }} unidades
+                </p>
+                <form
+                  action="/products/{{ product.id }}/stock?_method=PATCH"
+                  method="POST"
+                  id="update-stock-form-{{ product.id }}"
+                >
+                  <input
+                    type="number"
+                    name="stock"
+                    class="w-full border border-gray-300 rounded-md p-2 mt-4"
+                    value="{{ product.stock }}"
+                  />
+                  <button class="bg-green-600 text-white py-2 px-4 rounded-md mt-4" type="submit">
+                    Atualizar estoque
+                  </button>
+                </form>
+                <form
+                  action="/products/{{ product.id }}?_method=DELETE"
+                  method="POST"
+                  id="delete-product-form-{{ product.id }}"
+                >
+                  <input type="hidden" name="_method" value="DELETE" />
+                  <button class="bg-red-600 text-white py-2 px-4 rounded-md mt-4" type="submit">
+                    Deletar produto
+                  </button>
+                </form>
               </div>
             </div>
           @else

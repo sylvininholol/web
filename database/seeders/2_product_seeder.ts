@@ -7,6 +7,6 @@ export default class extends BaseSeeder {
     const categories = await CategoryFactory.createMany(3)
     await ProductFactory.merge({
       categoryId: categories[Math.floor(Math.random() * categories.length)].id,
-    }).with('images', 5).createMany(10)
+    }).with('images', 2).createMany(10)
   }
 }

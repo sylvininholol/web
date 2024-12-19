@@ -35,6 +35,8 @@ router
       .group(() => {
         router.get('/create', [ProductsController, 'showCreate']).as('products.create.show')
         router.get('/', [ProductsController, 'viewProducts']).as('products.viewProducts')
+        router.patch('/:id/stock', [ProductsController, 'updateStock']).as('products.updateStock')
+        router.delete('/:id', [ProductsController, 'deleteProduct']).as('products.destroy')
       })
       .prefix('products')
       .as('products')
