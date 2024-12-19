@@ -1,52 +1,65 @@
 @layouts.appWithHeader({ title: "Página Inicial" })
-<!-- Header -->
+  <!-- Header -->
 
-<main>
-    
+  <main>
+
     <div class="mt-6 lg:mt-14 px-4 lg:px-8">
-        <div class="container mx-auto">
-            <h2 class="uppercase text-lg text-center block font-semibold">Você pode gostar</h2>
-        </div>
-        <div class="swiper mySwiper spots__wrapper mt-6 lg:mt-14 swiper-initialized swiper-horizontal">
-            <div class="swiper-wrapper flex-row" id="swiper-wrapper-2b71005321dde0508" aria-live="polite">
-                @each(product in products)
-                <div class="swiper-slide">
-                    <a href="/categorias/{{ product.category.id }}/roupas/{{ product.id }}">
-                        <div class="bg-white rounded-lg shadow-md overflow-hidden group mx-2">
-                            <div class="relative pb-2/3">
-                                @if(product.images.length > 0)
-                                <img src="{{ product.images[0].imageUrl }}" alt="{{ product.name }}"
-                                    class="w-full group-hover:hidden" />
-                                <img src="{{ product.images[1].imageUrl }}" alt="{{ product.name }} hover"
-                                    class="w-full object-cover hidden group-hover:block" />
-                                @else
-                                <div class="w-full h-48 flex items-center justify-center bg-gray-200 text-gray-500">
-                                    Sem imagem
-                                </div>
-                                @end
-                            </div>
-                            <div class="p-4">
-                                <h2 class="text-xl font-semibold text-gray-800">{{ product.name }}</h2>
-                                <p class="text-lg font-bold text-green-600 mb-4">R$ {{ product.price }}</p>
-                            </div>
-                        </div>
+      <div class="container mx-auto">
+        <h2 class="uppercase text-lg text-center block font-semibold">
+          Você pode gostar
+        </h2>
+      </div>
+      <div class="swiper mySwiper spots__wrapper mt-6 lg:mt-14 swiper-initialized swiper-horizontal">
+        <div class="swiper-wrapper flex-row" id="swiper-wrapper-2b71005321dde0508" aria-live="polite">
+          @each(product in products)
+            <div class="swiper-slide">
+              <a href="/categorias/{{ product.category.id }}/roupas/{{ product.id }}">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden group mx-2">
+                  <div class="relative pb-2/3">
+                    @if(product.images.length > 0)
+                      <img
+                        src="{{ product.images[0].imageUrl }}"
+                        alt="{{ product.name }}"
+                        class="w-full group-hover:hidden"
+                      />
+
+                      @if(product.images.length > 1)
+                        <img
+                          src="{{ product.images[1].imageUrl }}"
+                          alt="{{ product.name }} hover"
+                          class="w-full object-cover hidden group-hover:block"
+                        />
+                      @end
+                    @else
+                      <div class="w-full h-48 flex items-center justify-center bg-gray-200 text-gray-500">
+                        Sem imagem
+                      </div>
+                    @end
+                  </div>
+                  <div class="p-4">
+                    <h2 class="text-xl font-semibold text-gray-800">
+                      {{ product.name }}
+                    </h2>
+                    <p class="text-lg font-bold text-green-600 mb-4">
+                      R$ {{ product.price.toFixed(2) }}
+                    </p>
+                  </div>
                 </div>
-                @else
-                <p class="text-center text-gray-500 text-lg col-span-full">Nenhum produto encontrado.</p>
-                </a>
-                @end
-            </div>
+              </div>
+            @else
+              <p class="text-center text-gray-500 text-lg col-span-full">
+                Nenhum produto encontrado.
+              </p>
+            </a>
+          @end
         </div>
-        <!-- Navigation Buttons -->
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+      </div>
+      <!-- Navigation Buttons -->
+      <div class="swiper-button-prev">
+      </div>
+      <div class="swiper-button-next">
+      </div>
     </div>
-
-
-
-
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script>
@@ -74,5 +87,5 @@
         });
     </script>
 
-</main>
+  </main>
 @end

@@ -6,11 +6,11 @@
       <div class="flex justify-center lg:justify-between items-center">
         @if(category)
           <div>
-            <a href="/" class="text-sm text-black">Home</a> | <a href="/roupas" class="text-sm text-black">Roupas</a>- <a href="/categorias/{{ category.id }}/roupas" class="text-sm text-black">{{ category.name }}</a>
+            <a href="/" class="text-sm text-black">Home</a> | <a href="/" class="text-sm text-black">Roupas</a> - <a href="/categorias/{{ category.id }}/roupas" class="text-sm text-black">{{ category.name }}</a>
           </div>
         @else
           <div>
-            <a href="/" class="text-sm text-black">Home</a> | <a href="/roupas" class="text-sm text-black">Roupas</a>
+            <a href="/" class="text-sm text-black">Home</a> | <a href="/" class="text-sm text-black">Roupas</a>
           </div>
         @end
         @if(category)
@@ -68,11 +68,13 @@
                       alt="{{ product.name }}"
                       class="w-full group-hover:hidden"
                     />
-                    <img
-                      src="{{ product.images[1].imageUrl }}"
-                      alt="{{ product.name }} hover"
-                      class="w-full object-cover hidden group-hover:block"
-                    />
+                    @if(product.images.length > 1)
+                      <img
+                        src="{{ product.images[1].imageUrl }}"
+                        alt="{{ product.name }} hover"
+                        class="w-full object-cover hidden group-hover:block"
+                      />
+                    @end
                   @else
                     <div class="w-full h-48 flex items-center justify-center bg-gray-200 text-gray-500">
                       Sem imagem
@@ -84,7 +86,7 @@
                     {{ product.name }}
                   </h2>
                   <p class="text-lg font-bold text-green-600 mb-4">
-                    R$ {{ product.price }}
+                    R$ {{ product.price.toFixed(2) }}
                   </p>
                 </div>
               </div>
